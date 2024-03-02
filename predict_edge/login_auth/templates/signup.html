@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}"> <!-- Importando o arquivo de estilos CSS -->
+</head>
+<body>
+    <div class="container">
+        <form class="form-container" method="post">
+            {% csrf_token %}
+            <h2>Register</h2>
+            <input type="text" name="first_name" placeholder="Nome" required>
+            <input type="text" name="last_name" placeholder="Sobrenome" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password1" placeholder="Senha" required>
+            <input type="password" name="password2" placeholder="Confirme a Senha" required>
+            <button type="submit" class="button">Registrar</button>
+            <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login</a></p>
+            {% if form.errors %}
+                <div class="error-message">
+                    {% for field, error_list in form.errors.items %}
+                        {% for error in error_list %}
+                            {{ field|title }}: {{ error }} <br>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLHub</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to MLHub</h1>
+    </header>
+    <main>
+        <p>Start building and deploying machine learning models with ease.</p>
+        <a href="{% url 'logout' %}" class="button">Logout</a>
+    </main>
+    <footer>
+        <p>&copy; 2024 MLHub. All rights reserved.</p>
+    </footer>
+</body>
+</html>
