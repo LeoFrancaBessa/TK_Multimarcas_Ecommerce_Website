@@ -70,10 +70,10 @@
         <div class="grid">
             {% for c in clothes %}
             <div class="item">
-                <img src="https://cdn.awsli.com.br/300x300/1736/1736308/produto/237656717/whatsapp-image-2023-10-18-at-16-18-39-2p06hbs1ol.jpeg" alt="Roupa 1">
+                <img src="{{c.images.first.image.url}}" alt="Roupa 1">
                 <div class="info">
-                    <h3>Blusa Bata Manga Morcego Cores</h3>
-                    <b><p class="price">R$ 25.80</p></b>
+                    <h3>{{c.name}}</h3>
+                    <b><p class="price">R$ {{c.price}}</p></b>
                 </div>
             </div>
             {% endfor %}

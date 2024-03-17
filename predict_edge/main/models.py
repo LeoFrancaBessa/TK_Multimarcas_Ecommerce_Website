@@ -22,32 +22,46 @@ class UserProfile(models.Model):
 
 class Brand(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
 
+    def __str__(self) -> str:
+        return self.name
 
 class Material(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Type(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class SubType(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Clothing(models.Model):
     name = models.CharField(max_length = 200)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     gender = models.CharField(max_length=1, choices=[('M', 'Masculino'), 
                                                          ('F', 'Feminino')])
@@ -59,11 +73,13 @@ class Clothing(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class ClothingImage(models.Model):
     clothing = models.ForeignKey(Clothing, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='clothing_images/')
-
+    image = models.ImageField(upload_to='media/')
 
 class Clothes_Sizes(models.Model):
     clothing = models.ForeignKey(Clothing, related_name='sizes', on_delete=models.CASCADE)
