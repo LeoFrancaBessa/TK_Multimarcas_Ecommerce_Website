@@ -48,7 +48,7 @@ class ClothingAdmin(admin.ModelAdmin):
 
 @admin.register(ClothingImage)
 class ClothingImageAdmin(admin.ModelAdmin):
-    list_display = ['clothing', 'image']
+    list_display = ['clothing', 'image', 'principal']
     # Adicione outros campos conforme necessário
 
 @admin.register(Clothes_Sizes)

@@ -21,57 +21,87 @@ class UserProfile(models.Model):
 
 
 class Brand(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name="Nome")
+    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Marca"
+        verbose_name_plural = "Marcas"
 
     def __str__(self) -> str:
         return self.name
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name="Nome")
+    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
 
     def __str__(self) -> str:
         return self.name
 
 class Material(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name="Nome")
+    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Material"
+        verbose_name_plural = "Materiais"
 
     def __str__(self) -> str:
         return self.name
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name="Nome")
+    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "Tipo"
+        verbose_name_plural = "Tipos"
 
     def __str__(self) -> str:
         return self.name
 
 
 class SubType(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField(null=True, blank=True)
+    name = models.CharField(max_length=100, verbose_name="Nome")
+    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+
+    class Meta:
+        ordering = ["name"]
+        verbose_name = "SubTipo"
+        verbose_name_plural = "SubTipos"
 
     def __str__(self) -> str:
         return self.name
 
 
 class Clothing(models.Model):
-    name = models.CharField(max_length = 200)
-    description = models.TextField(null=True, blank=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    name = models.CharField(max_length=200, verbose_name="Nome")
+    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Preço")
     gender = models.CharField(max_length=1, choices=[('M', 'Masculino'), 
-                                                         ('F', 'Feminino')])
-    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    material = models.ForeignKey(Material, on_delete=models.SET_NULL, null=True)
-    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True)
-    subtype = models.ForeignKey(SubType, on_delete=models.SET_NULL, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+                                                         ('F', 'Feminino')], verbose_name="Gênero")
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, verbose_name="Marca")
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name="Categoria")
+    material = models.ForeignKey(Material, on_delete=models.SET_NULL, null=True, verbose_name="Material")
+    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, verbose_name="Tipo")
+    subtype = models.ForeignKey(SubType, on_delete=models.SET_NULL, null=True, verbose_name="SubTipo")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Criado Em")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Atualizado Em")
+
+    class Meta:
+        ordering = ["updated_at"]
+        verbose_name = "Roupa"
+        verbose_name_plural = "Roupas"
 
     def __str__(self) -> str:
         return self.name
@@ -79,7 +109,13 @@ class Clothing(models.Model):
 
 class ClothingImage(models.Model):
     clothing = models.ForeignKey(Clothing, related_name='images', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/')
+    principal = models.BooleanField(default=False, verbose_name="Imagem Principal?")
+    image = models.ImageField(upload_to='media/', verbose_name="Imagem")
+
+    class Meta:
+        verbose_name = "Imagem Roupa"
+        verbose_name_plural = "Imagens Roupa"
+
 
 class Clothes_Sizes(models.Model):
     clothing = models.ForeignKey(Clothing, related_name='sizes', on_delete=models.CASCADE)
@@ -90,8 +126,12 @@ class Clothes_Sizes(models.Model):
         ('G', 'G'),
         ('GG', 'GG'),
     ]
-    size = models.CharField(max_length=4, choices=size_choices)
+    size = models.CharField(max_length=4, choices=size_choices, verbose_name="Tamanho")
     count = models.IntegerField()
+
+    class Meta:
+        verbose_name = "Tamanho Roupa"
+        verbose_name_plural = "Tamanhos Roupa"
 
 
 class Clothes_Colors(models.Model):
@@ -116,7 +156,28 @@ class Clothes_Colors(models.Model):
         ('#800080', 'roxo'),
         ('#00FF00', 'verde-limão'),
         ('#FF00FF', 'magenta'),
-        ('#FFFFF0', 'bege')
+        ('#FFFFF0', 'bege'),
+        ('#40E0D0', 'turquesa'),
+        ('#FF4500', 'laranja escuro'),
+        ('#FF6347', 'salmão'),
+        ('#FFE4B5', 'mocassim'),
+        ('#BDB76B', 'caqui'),
+        ('#008080', 'teal'),
+        ('#FA8072', 'salmon claro'),
+        ('#DC143C', 'carmesim'),
+        ('#7FFFD4', 'aquamarine'),
+        ('#F0E68C', 'khaki claro'),
+        ('#B8860B', 'ouro escuro'),
+        ('#00CED1', 'azul-celeste'),
+        ('#6495ED', 'azul ardósia'),
+        ('#CD5C5C', 'marrom rosado'),
+        ('#556B2F', 'verde oliva escuro'),
+        ('#4B0082', 'índigo'),
+        ('#2F4F4F', 'cinza ardósia escuro')
     ]
-    color = color = ColorField(choices=COLOR_PALETTE)
+    color = color = ColorField(choices=COLOR_PALETTE, verbose_name="Cor")
     count = models.IntegerField()
+
+    class Meta:
+        verbose_name = "Tamanho Roupa"
+        verbose_name_plural = "Tamanhos Roupa"
