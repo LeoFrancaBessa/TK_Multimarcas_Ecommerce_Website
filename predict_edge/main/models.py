@@ -175,9 +175,9 @@ class Clothes_Colors(models.Model):
         ('#4B0082', 'índigo'),
         ('#2F4F4F', 'cinza ardósia escuro')
     ]
-    color = color = ColorField(choices=COLOR_PALETTE, verbose_name="Cor")
+    color = ColorField(choices=COLOR_PALETTE, verbose_name="Cor")
     count = models.IntegerField()
 
     class Meta:
-        verbose_name = "Tamanho Roupa"
-        verbose_name_plural = "Tamanhos Roupa"
+        verbose_name = "Cor Roupa"
+        verbose_name_plural = "Cores Roupa"
