@@ -8,3 +8,5 @@ Secure Payments: Rest assured with our secure and encrypted payment gateway.
 Product Recommendations: Personalized suggestions based on user preferences and browsing history.
 Responsive Design: Enjoy a flawless shopping experience across all devices, from desktop to mobile.
 Whether you're looking for casual wear, formal attire, or the latest fashion trends, our Men's Clothing E-Commerce Platform has got you covered. Shop now and elevate your wardrobe with our curated selection of high-quality men's apparel!
+
+![Alt text](https://i.imgur.com/RTm9bNw.png)
