@@ -82,6 +82,7 @@
         <div class="clothing-info-container">
             <div class="clothing-title">
                 <h2>{{clothing.name}}</h2>
+                <p>Marca: <b>{{clothing.brand.name}}</b></p>
             </div>
             <!-- Coluna para outras informações -->
             <div class="additional-info">
@@ -116,6 +117,108 @@
             </div>
         </div>
     </section>
+
+    <div class="more-details-container">
+        <p class="description-title">Descrição</p>
+        <p class="description-text">{{clothing.description}}</p>
+        <span class="caracteristicas-text">Marca: <b>{{clothing.brand.name}}</b></span>
+        <span class="caracteristicas-text">Gênero: <b>{{clothing.gender}}</b></span>
+        <span class="caracteristicas-text">Tipo: <b>{{clothing.type.name}}</b></span>
+        <span class="caracteristicas-text">Sub-Tipo: <b>{{clothing.subtype.name}}</b></span>
+        <span class="caracteristicas-text">Categoria: <b>{{clothing.category.name}}</b></span>
+        <span class="caracteristicas-text">Material: <b>{{clothing.material.name}}</b></span>
+        <p class="space-details-botton"></p>
+    </div>
+
+    <p class="destaques-title">Produtos Similares</p>
+    <div class="grid-destaque-container">
+        <div class="grid-destaque">
+            {% for c in clothes %}
+                <div class="destaque">
+                    <img src="{{c.images.first.image.url}}" alt="Roupa 1">
+                    <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
+                    <div class="info">
+                        <div class="info-clothe-name">
+                            <h3 class="clothe-name">{{c.name}}</h3>
+                        </div>
+                        <hr>
+                        <p class="price">por <b>R$ {{c.price}}</b> à vista</p>
+                        <p class="price-parcelado">ou <b>3x de {{c.price}}</b> sem juros</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-columns">
+            <!-- Coluna 1 -->
+            <div class="footer-column">
+                <h4>Sobre a Loja</h4>
+                <a href="#">Nossa História</a>
+                <a href="#">Missão e Visão</a>
+                <a href="#">Nossas Lojas</a>
+            </div>
+
+            <!-- Coluna 2 -->
+            <div class="footer-column">
+                <h4>Dúvidas Frequentes</h4>
+                <a href="#">Como Comprar</a>
+                <a href="#">Política de Trocas</a>
+                <a href="#">Formas de Pagamento</a>
+            </div>
+
+            <!-- Coluna 3 -->
+            <div class="footer-column">
+                <h4>Fale Conosco</h4>
+                <a href="#">Atendimento ao Cliente</a>
+                <a href="#">Trabalhe Conosco</a>
+                <a href="#">Localização</a>
+            </div>
+            <div class="footer-column">
+                <h4>Formas de Pagamento</h4>
+                <img src="{% static 'main/formas_pagamento.png' %}" alt="">
+            </div>
+        </div>
+    </footer>
+
+    <!-- login modal -->
+    <div id="loginModal" class="modal">
+        <!-- Conteúdo do modal -->
+        <div class="modal-content">
+            <button class="close" id="closeLoginModal" onclick="closeModal('loginModal')">&times;</button>
+            <form class="loginForm" id="idLoginForm" method="post">
+            <label for="login_email">Email:</label>
+            <input type="email" id="login_email" name="login_email" required>
+            <label for="senha">Senha:</label>
+            <input type="password" id="login_password" name="login_password" required>
+            <button type="submit">Entrar</button>
+            </form>
+            <p>Ainda não tem uma conta? <a href="#" onclick="openModal('signupModal')">Cadastre-se</a></p>
+        </div>
+    </div>
+
+    <!-- signup modal -->
+    <div id="signupModal" class="modal">
+        <!-- Conteúdo do modal -->
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('signupModal')">&times;</button>
+            <form class="signupForm" id="idsignupForm" method="post">
+                <label for="first_name">Nome:</label>
+                <input type="text" id="first_name" name="first_name" required>
+                <label for="last_name">Sobrenome:</label>
+                <input type="text" id="last_name" name="last_name" required>
+                <label for="signup_email">Email:</label>
+                <input type="email" id="signup_email" name="signup_email" required>
+                <label for="signup_password1">Senha:</label>
+                <input type="password" id="signup_password1" name="signup_password1" required>
+                <label for="signup_password2">Repita sua Senha:</label>
+                <input type="password" id="signup_password2" name="signup_password2" required>
+            <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
 
     <script>
 

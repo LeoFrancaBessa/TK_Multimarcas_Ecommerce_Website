@@ -4,5 +4,5 @@ from .views import IndexView, ClothingDetailsView
 
 urlpatterns = [
     path('index/', IndexView.as_view(), name='index'),
-    path('roupa/', ClothingDetailsView.as_view(), name='clothing-detail'),
+    path('roupa/<int:pk>/', ClothingDetailsView.as_view(), name='clothing-detail'),
 ]

@@ -88,8 +88,8 @@ class Clothing(models.Model):
     name = models.CharField(max_length=200, verbose_name="Nome")
     description = models.TextField(null=True, blank=True, verbose_name="Descrição")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Preço")
-    gender = models.CharField(max_length=1, choices=[('M', 'Masculino'), 
-                                                         ('F', 'Feminino')], verbose_name="Gênero")
+    gender = models.CharField(max_length=20, choices=[('Masculino', 'Masculino'), 
+                                                         ('Feminino', 'Feminino')], verbose_name="Gênero")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, verbose_name="Marca")
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name="Categoria")
     material = models.ForeignKey(Material, on_delete=models.SET_NULL, null=True, verbose_name="Material")

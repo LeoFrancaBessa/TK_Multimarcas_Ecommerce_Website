@@ -70,7 +70,7 @@
             {% for c in clothes %}
                 <div class="destaque">
                     <img src="{{c.images.first.image.url}}" alt="Roupa 1">
-                    <button class="btn-mais-detalhes">Mais Detalhes</button>
+                    <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
                     <div class="info">
                         <div class="info-clothe-name">
                             <h3 class="clothe-name">{{c.name}}</h3>
@@ -104,7 +104,7 @@
             {% for c in clothes %}
                 <div class="destaque">
                     <img src="{{c.images.first.image.url}}" alt="Roupa 1">
-                    <button class="btn-mais-detalhes">Mais Detalhes</button>
+                    <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
                     <div class="info">
                         <div class="info-clothe-name">
                             <h3 class="clothe-name">{{c.name}}</h3>
@@ -118,7 +118,7 @@
             {% for c in clothes %}
                 <div class="destaque">
                     <img src="{{c.images.first.image.url}}" alt="Roupa 1">
-                    <button class="btn-mais-detalhes">Mais Detalhes</button>
+                    <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
                     <div class="info">
                         <div class="info-clothe-name">
                             <h3 class="clothe-name">{{c.name}}</h3>
