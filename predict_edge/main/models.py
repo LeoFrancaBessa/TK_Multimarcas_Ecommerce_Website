@@ -181,3 +181,19 @@ class Clothes_Colors(models.Model):
     class Meta:
         verbose_name = "Cor Roupa"
         verbose_name_plural = "Cores Roupa"
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE)
+    color = models.ForeignKey(Clothes_Colors, on_delete=models.CASCADE, null=True)
+    size = models.ForeignKey(Clothes_Sizes, on_delete=models.CASCADE, null=True)
+    quantity = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
