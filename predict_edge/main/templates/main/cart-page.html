@@ -22,30 +22,47 @@
 
     {% include "main/headers.html" %}
 
-    <div class="cart-container">
-        <div class="cart-header">
-            <div class="header-info">Produto</div>
-            <div class="header-price">Preço Unitário</div>
-            <div class="header-quantity">Quantidade</div>
-            <div class="header-subtotal">Subtotal</div>
-            <div class="header-delete">Excluir</div>
+    <div class="main-container">
+        <div class="main-header">
+            <h2>Carrinho</h2>
+            <span>Clique em finalizar compra para efetuar o seu pedido.</span>
         </div>
-        <!-- Exemplo de item do carrinho -->
-        <div class="cart-item">
-            <div class="item-info">
-                <img src="https://via.placeholder.com/60" alt="Produto">
-                Nome do Produto
+        <div class="cart-container">
+            <div class="cart-header">
+                <div class="header-info">Produto</div>
+                <div class="header-price">Preço Unitário</div>
+                <div class="header-quantity">Quantidade</div>
+                <div class="header-subtotal">Subtotal</div>
+                <div class="header-delete"></div>
             </div>
-            <div class="item-price">R$ 99,99</div>
-            <div class="item-quantity">
-                <button class="quantity-btn minus">-</button>
-                <span class="quantity-value">1</span>
-                <button class="quantity-btn plus">+</button>
+            <!-- Exemplo de item do carrinho -->
+            {% for item in cartItems %}
+                <div class="cart-item">
+                    <div class="item-info">
+                        <img src="{{item.clothing.images.first.image.url}}" alt="Produto">
+                        <div class="item-info-text">
+                            <span class="item-info-text-title">{{item.clothing.name}}</span>
+                            <span class="item-info-text-other">Estoque: Disponível</span>
+                            <span class="item-info-text-other">Tamanho: {{item.size.size}}</span>
+                            <span class="item-info-text-other">Cor: {{item.color.color}}</span>
+                        </div>
+                    </div>
+                    <div class="item-price" id="itemPrice_{{item.id}}">{{item.clothing.price}}</div>
+                    <div class="item-quantity">
+                        <span class="quantity-value" id="itemQuantity_{{item.id}}">{{item.quantity}}</span>
+                    </div>
+                    <div class="item-subtotal" id="itemSubtotal_{{item.id}}"></div>
+                    <div class="item-delete"><button id="delete_{{item.id}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                    </svg></button></div>
+                </div>
+            {% endfor %}
+            
+            <div class="total-price-info">
+                
             </div>
-            <div class="item-subtotal">R$ 199,98</div>
-            <div class="item-delete"><button>Excluir</button></div>
+
         </div>
-        <!-- Adicione mais itens do carrinho aqui -->
     </div>
 
     {% include "main/footer.html" %}
@@ -55,6 +72,46 @@
 
     <script>
 
+        $( document ).ready(function() {
+            {% for item in cartItems %}
+
+                //Make calculations from itemSubtotal
+                price = $('#itemPrice_{{item.id}}').text()
+                price = parseFloat(price)
+                quantity = $('#itemQuantity_{{item.id}}').text()
+                quantity = parseInt(quantity)
+                subtotal = price * quantity
+                subtotal = String(subtotal.toFixed(2))
+                $('#itemSubtotal_{{item.id}}').text(subtotal)
+
+                //delete button
+                $("#delete_{{item.id}}").click(function(){
+                    var data = {
+                            'cartItem': '{{item.id}}',
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'remove_clothing_cart' %}",
+                        data: data,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
+            {% endfor %}
+        });
+        $('#itemSubtotal')
+    
     </script>
+
 </body>
 </html>

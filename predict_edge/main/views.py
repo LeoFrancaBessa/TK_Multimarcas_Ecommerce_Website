@@ -1,6 +1,7 @@
 from typing import Any
 from django.views.generic import TemplateView
 from .models import Clothing, Clothes_Sizes, Clothes_Colors, ClothingImage, Cart, CartItem
+from django.http import JsonResponse
 
 class IndexView(TemplateView):
     template_name = 'main/index.html'
@@ -38,6 +39,39 @@ class ClothingDetailsView(TemplateView):
         
         return context
     
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            cart = Cart.objects.filter(user=request.user).last()
+            if not cart:
+                cart = Cart.objects.create(
+                    user = request.user
+                )
+
+            clothing = Clothing.objects.get(pk=self.kwargs.get('pk'))
+            size = Clothes_Sizes.objects.get(pk=int(request.POST.get('size'))) 
+            color = Clothes_Colors.objects.get(pk=int(request.POST.get('color')))
+
+            cartItem = CartItem.objects.filter(cart=cart, clothing=clothing, size=size, color=color).first()
+            if not cartItem:
+                cartItem = CartItem.objects.create(
+                    cart = cart,
+                    clothing = clothing,
+                    size = size,
+                    color = color,
+                    quantity = 1
+                )
+            else:
+                cartItem.quantity += 1
+                cartItem.save()
+
+            message = {
+                'message': 'roupa adicionada com sucesso ao carrinho!'
+            }
+            return JsonResponse(message)
+        
+        # Se não for uma request AJAX, continue com o processamento padrão
+        return super().post(request, *args, **kwargs)
+    
 
 class CartView(TemplateView):
     template_name = 'main/cart-page.html'
@@ -47,5 +81,8 @@ class CartView(TemplateView):
         
         cart = Cart.objects.filter(user=self.request.user.id).first()
         context['cart'] = cart
+        
+        cartItems = CartItem.objects.filter(cart=cart)
+        context['cartItems'] = cartItems
         
         return context
