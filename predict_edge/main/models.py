@@ -188,6 +188,10 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "Carrinho"
+        verbose_name_plural = "Carrinhos"
+
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
@@ -198,7 +202,15 @@ class CartItem(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = "Item de Carrinho"
+        verbose_name_plural = "Itens de Carrinho"
+
 
 class Favorites(models.Model):
     user = models.ForeignKey(get_user_model(), related_name="favorites",  on_delete=models.CASCADE)
     clothing = models.ForeignKey(Clothing,  on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Favoritos"
+        verbose_name_plural = "Favoritos"
