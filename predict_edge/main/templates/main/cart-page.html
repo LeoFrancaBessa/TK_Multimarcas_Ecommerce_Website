@@ -47,9 +47,9 @@
                             <span class="item-info-text-other">Cor: {{item.color.color}}</span>
                         </div>
                     </div>
-                    <div class="item-price" id="itemPrice_{{item.id}}">{{item.clothing.price}}</div>
+                    <div class="item-price" id="itemPrice_{{item.id}}">R$ {{item.clothing.price}}</div>
                     <div class="item-quantity">
-                        <span class="quantity-value" id="itemQuantity_{{item.id}}">{{item.quantity}}</span>
+                        <input type="number" id="itemQuantity_{{item.id}}" value="{{item.quantity}}" min="1" max="10">
                     </div>
                     <div class="item-subtotal" id="itemSubtotal_{{item.id}}"></div>
                     <div class="item-delete"><button id="delete_{{item.id}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -58,10 +58,24 @@
                 </div>
             {% endfor %}
             
-            <div class="total-price-info">
-                
+            <div class="line">
+
             </div>
 
+            <div class="total-price-info">
+                <span>Total do Pedido: </span> <span id="totalPriceText" class="total-price-text">3333</span>
+            </div>
+
+            <div class="cepContainer">
+                <span>Calcular Frete: </span>
+                <input class="cepInput" type="text" name="" id="">
+                <button class="cepButton">Calcular</button>
+            </div>
+        </div>
+
+        <div class="finishButtonsDiv">
+            <button id="buyButton" class="keepBuyButton">Continuar Comprando</button>
+            <button id="buyButton" class="finishBuyButton">Finalizar Compra</button>
         </div>
     </div>
 
@@ -73,16 +87,20 @@
     <script>
 
         $( document ).ready(function() {
+            totalPrice = 0
+
             {% for item in cartItems %}
 
                 //Make calculations from itemSubtotal
                 price = $('#itemPrice_{{item.id}}').text()
+                price = price.substring(3)
                 price = parseFloat(price)
-                quantity = $('#itemQuantity_{{item.id}}').text()
+                quantity = $('#itemQuantity_{{item.id}}').val()
                 quantity = parseInt(quantity)
                 subtotal = price * quantity
+                totalPrice += subtotal
                 subtotal = String(subtotal.toFixed(2))
-                $('#itemSubtotal_{{item.id}}').text(subtotal)
+                $('#itemSubtotal_{{item.id}}').text('R$ ' + subtotal)
 
                 //delete button
                 $("#delete_{{item.id}}").click(function(){
@@ -107,10 +125,34 @@
                     });
                 });
 
+                //change quantity
+                $('#itemQuantity_{{item.id}}').change(function(){
+                    data = {
+                        'quantity': $(this).val(),
+                        'cartItem': '{{item.id}}'
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "{% url 'change_quantity_clothing_cart' %}",
+                        data: data,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+                });
+
             {% endfor %}
-        });
-        $('#itemSubtotal')
-    
+
+            $('#totalPriceText').text('R$ ' + String(totalPrice.toFixed(2)))
+        });    
     </script>
 
 </body>

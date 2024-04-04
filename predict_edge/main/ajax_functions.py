@@ -40,3 +40,15 @@ def remove_clothing_cart(request):
         'message': 'item removido com sucesso do carrinho!'
     }
     return JsonResponse(message)
+
+def change_quantity_clothing_cart(request):
+    cartItem = CartItem.objects.get(pk=int(request.POST.get('cartItem')))
+    quantity = int(request.POST.get('quantity'))
+
+    cartItem.quantity = quantity
+    cartItem.save()
+
+    message = {
+        'message': 'item alterado com sucesso!'
+    }
+    return JsonResponse(message)

@@ -394,6 +394,7 @@ button[type=submit]:hover {
     height: 40px;
     padding: 10px;
     border: 1px solid #001440;
+    border-radius: 5px;
 }
  
 .main-image {

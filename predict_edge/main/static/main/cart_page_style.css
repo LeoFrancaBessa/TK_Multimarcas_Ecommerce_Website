@@ -20,6 +20,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     margin-top: 2%;
+    padding-bottom: 1%;
 }
 
 .cart-header {
@@ -106,7 +107,108 @@
     background-color: #e04000;
 }
 
+.item-quantity input {
+    width: 50%;
+    text-align: center;
+    border: none;
+    outline:#001440;
+    background-color: #ffffff;
+}
+
+.item-quantity input::-webkit-inner-spin-button {
+    opacity: 1
+}
+
+.line{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-top: 1px solid #e0e0e0;
+}
+
 .total-price-info{
+    margin-top: 1%;
     float: right;
-    width: 100%;
+    width: 22%;
+    padding-left: 15px;
+    color: #001440;
+}
+
+.total-price-info span{
+    color: #001440;
+    flex: 1;
+    margin-top: 1%;
+}
+
+.total-price-text{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.cepContainer {
+    margin-top: 1%;
+    padding-left: 15px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.cepContainer span{
+    white-space: nowrap;
+    margin-right: 5%;
+}
+
+.cepButton {
+    padding: 6px;
+    margin-left: 5%;
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #001440; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda padrão */
+    cursor: pointer; /* Cursor ao passar o mouse */
+    transition: box-shadow 0.2s ease-in-out; /* Transição suave */
+}
+
+.cepButton:hover {
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.cepInput{
+    background: none;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #001440;
+    border-radius: 5px;
+}
+
+.finishButtonsDiv{
+    display: flex;
+    justify-content:right;
+    margin-top: 1%;
+}
+
+.finishBuyButton {
+    padding: 10px 20px; /* Padding interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #39c018; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda padrão */
+    cursor: pointer; /* Cursor ao passar o mouse */
+    transition: box-shadow 0.2s ease-in-out; /* Transição suave */
+    width: 20%;
+}
+
+.keepBuyButton{
+    padding: 10px 20px; /* Padding interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #817d7d; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda padrão */
+    cursor: pointer; /* Cursor ao passar o mouse */
+    transition: box-shadow 0.2s ease-in-out; /* Transição suave */
+    width: 20%;
+    margin-right: 1%;
+}
+
+/* Efeito ao passar o mouse */
+.finishBuyButton:hover, .keepBuyButton:hover{
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Sombra */
 }
