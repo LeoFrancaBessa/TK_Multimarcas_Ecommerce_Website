@@ -197,3 +197,8 @@ class CartItem(models.Model):
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Favorites(models.Model):
+    user = models.ForeignKey(get_user_model(), related_name="favorites",  on_delete=models.CASCADE)
+    clothing = models.ForeignKey(Clothing,  on_delete=models.CASCADE)
