@@ -1,4 +1,4 @@
-from .models import Clothing, Clothes_Sizes, Clothes_Colors, Cart, CartItem
+from .models import Clothing, Clothes_Sizes, Clothes_Colors, Cart, CartItem, Favorites
 from django.http import JsonResponse
 
 
@@ -50,5 +50,23 @@ def change_quantity_clothing_cart(request):
 
     message = {
         'message': 'item alterado com sucesso!'
+    }
+    return JsonResponse(message)
+
+def add_remove_favorite_user(request):
+    clothing = Clothing.objects.get(pk=int(request.POST.get('clothing')))
+    user=request.user
+
+    favorite = Favorites.objects.filter(user=user, clothing=clothing).first()
+    if favorite:
+        favorite.delete()
+    else:
+        Favorites.objects.create(
+            user=user,
+            clothing=clothing
+        )
+    
+    message = {
+        'message': 'Favorito alterado com sucesso!'
     }
     return JsonResponse(message)

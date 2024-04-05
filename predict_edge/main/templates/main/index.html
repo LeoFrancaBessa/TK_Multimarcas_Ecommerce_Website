@@ -27,6 +27,7 @@
                 <div class="destaque">
                     <img src="{{c.images.first.image.url}}" alt="Roupa 1">
                     <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
+                    <span class="favorite-heart"> <img src="{% static 'main/heart.png' %}" alt="" id="favorite_clothing_{{c.pk}}"> </span>
                     <div class="info">
                         <div class="info-clothe-name">
                             <h3 class="clothe-name">{{c.name}}</h3>
@@ -90,9 +91,35 @@
 
     {% include "main/footer.html" %}
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        
+        {% for c in clothes %}
+
+            $("#favorite_clothing_{{c.pk}}").click(function(){
+            var data = {
+                        'clothing': '{{c.pk}}',
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'add_remove_favorite_user' %}",
+                    data: data,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response)
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            })
+
+        {% endfor %}
     </script>
 </body>
 </html>
