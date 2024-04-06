@@ -27,7 +27,14 @@
                 <div class="destaque">
                     <img src="{{c.images.first.image.url}}" alt="Roupa 1">
                     <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
-                    <span class="favorite-heart"> <img src="{% static 'main/heart.png' %}" alt="" id="favorite_clothing_{{c.pk}}"> </span>
+                    <span class="favorite-heart">
+                        {% if c.pk in favorites %}
+                            <img class="heart_fill" src="{% static 'main/heart fill.png' %}" 
+                        {% else %}
+                            <img class="heart_outline" src="{% static 'main/heart.png' %}" 
+                        {% endif %}
+                        alt="" id="favorite_clothing_{{c.pk}}"> 
+                    </span>
                     <div class="info">
                         <div class="info-clothe-name">
                             <h3 class="clothe-name">{{c.name}}</h3>
@@ -62,20 +69,14 @@
                 <div class="destaque">
                     <img src="{{c.images.first.image.url}}" alt="Roupa 1">
                     <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
-                    <div class="info">
-                        <div class="info-clothe-name">
-                            <h3 class="clothe-name">{{c.name}}</h3>
-                        </div>
-                        <hr>
-                        <p class="price">por <b>R$ {{c.price}}</b> à vista</p>
-                        <p class="price-parcelado">ou <b>3x de {{c.price}}</b> sem juros</p>
-                    </div>
-                </div>
-            {% endfor %}
-            {% for c in clothes %}
-                <div class="destaque">
-                    <img src="{{c.images.first.image.url}}" alt="Roupa 1">
-                    <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
+                    <span class="favorite-heart">
+                        {% if c.pk in favorites %}
+                            <img class="heart_fill" src="{% static 'main/heart fill.png' %}" 
+                        {% else %}
+                            <img class="heart_outline" src="{% static 'main/heart.png' %}" 
+                        {% endif %}
+                        alt="" id="favorite_clothing_{{c.pk}}"> 
+                    </span>
                     <div class="info">
                         <div class="info-clothe-name">
                             <h3 class="clothe-name">{{c.name}}</h3>
@@ -97,6 +98,7 @@
     <script>
         {% for c in clothes %}
 
+            //Call ajax to add or remove favorite clothing from user
             $("#favorite_clothing_{{c.pk}}").click(function(){
             var data = {
                         'clothing': '{{c.pk}}',
@@ -111,7 +113,14 @@
                     },
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response)
+                        //Change image of heart when the user click
+                        let image_heart_source = $("#favorite_clothing_{{c.pk}}").attr("src");
+                        if (image_heart_source.includes('fill')){
+                            $("#favorite_clothing_{{c.pk}}").attr("src", "{% static 'main/heart.png' %}");
+                        }
+                        else{
+                            $("#favorite_clothing_{{c.pk}}").attr("src", "{% static 'main/heart fill.png' %}");
+                        }
                     },
                     error: function(error) {
                         console.log(error);
@@ -120,6 +129,7 @@
             })
 
         {% endfor %}
+
     </script>
 </body>
 </html>

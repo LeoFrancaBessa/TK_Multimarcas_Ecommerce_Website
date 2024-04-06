@@ -1,6 +1,6 @@
 from typing import Any
 from django.views.generic import TemplateView
-from .models import Clothing, Clothes_Sizes, Clothes_Colors, ClothingImage, Cart, CartItem
+from .models import Clothing, Clothes_Sizes, Clothes_Colors, ClothingImage, Cart, CartItem, Favorites
 from django.http import JsonResponse
 
 class IndexView(TemplateView):
@@ -11,6 +11,9 @@ class IndexView(TemplateView):
         
         clothes = Clothing.objects.all()
         context['clothes'] = clothes
+
+        favorites = Favorites.objects.filter(user=self.request.user).values_list('clothing__pk', flat=True)
+        context['favorites'] = favorites
         
         return context
 
@@ -37,40 +40,10 @@ class ClothingDetailsView(TemplateView):
         clothes = Clothing.objects.all()
         context['clothes'] = clothes
         
+        favorites = Favorites.objects.filter(user=self.request.user).values_list('clothing__pk', flat=True)
+        context['favorites'] = favorites
+
         return context
-    
-    def post(self, request, *args, **kwargs):
-        if request.is_ajax():
-            cart = Cart.objects.filter(user=request.user).last()
-            if not cart:
-                cart = Cart.objects.create(
-                    user = request.user
-                )
-
-            clothing = Clothing.objects.get(pk=self.kwargs.get('pk'))
-            size = Clothes_Sizes.objects.get(pk=int(request.POST.get('size'))) 
-            color = Clothes_Colors.objects.get(pk=int(request.POST.get('color')))
-
-            cartItem = CartItem.objects.filter(cart=cart, clothing=clothing, size=size, color=color).first()
-            if not cartItem:
-                cartItem = CartItem.objects.create(
-                    cart = cart,
-                    clothing = clothing,
-                    size = size,
-                    color = color,
-                    quantity = 1
-                )
-            else:
-                cartItem.quantity += 1
-                cartItem.save()
-
-            message = {
-                'message': 'roupa adicionada com sucesso ao carrinho!'
-            }
-            return JsonResponse(message)
-        
-        # Se não for uma request AJAX, continue com o processamento padrão
-        return super().post(request, *args, **kwargs)
     
 
 class CartView(TemplateView):

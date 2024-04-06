@@ -37,9 +37,19 @@
         </div>
 
         <div class="clothing-info-container">
-            <div class="clothing-title">
-                <h2>{{clothing.name}}</h2>
-                <p>Marca: <b>{{clothing.brand.name}}</b></p>
+            <div class="clothing-title-container">
+                <div class="clothing-title">
+                    <h2>{{clothing.name}}</h2>
+                    <p>Marca: <b>{{clothing.brand.name}}</b></p>
+                </div>
+                <div class="clothing-title-heart">
+                    {% if clothing.pk in favorites %}
+                        <img class="heart_fill" src="{% static 'main/heart fill.png' %}" 
+                    {% else %}
+                        <img class="heart_outline" src="{% static 'main/heart.png' %}" 
+                    {% endif %}
+                    alt="" id="heart-image"> 
+                </div>
             </div>
             <!-- Coluna para outras informações -->
             <div class="additional-info">
@@ -94,6 +104,14 @@
                 <div class="destaque">
                     <img src="{{c.images.first.image.url}}" alt="Roupa 1">
                     <a href="{% url 'clothing-detail' c.pk %}"> <button class="btn-mais-detalhes">Mais Detalhes</button> </a>
+                    <span class="favorite-heart">
+                        {% if c.pk in favorites %}
+                            <img class="heart_fill" src="{% static 'main/heart fill.png' %}" 
+                        {% else %}
+                            <img class="heart_outline" src="{% static 'main/heart.png' %}" 
+                        {% endif %}
+                        alt="" id="favorite_clothing_{{c.pk}}"> 
+                    </span>
                     <div class="info">
                         <div class="info-clothe-name">
                             <h3 class="clothe-name">{{c.name}}</h3>
@@ -197,6 +215,71 @@
                 }
             });
         });
+
+
+        //Function call to main clothing
+        $("#heart-image").click(function(){
+            var data = {
+                        'clothing': '{{clothing.pk}}',
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'add_remove_favorite_user' %}",
+                    data: data,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        //Change image of heart when the user click
+                        let image_heart_source = $("#heart-image").attr("src");
+                        if (image_heart_source.includes('fill')){
+                            $("#heart-image").attr("src", "{% static 'main/heart.png' %}");
+                        }
+                        else{
+                            $("#heart-image").attr("src", "{% static 'main/heart fill.png' %}");
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            })
+
+
+        //Call ajax to add or remove favorite clothing from user
+        //Function calls to recommended clothes
+        {% for c in clothes %}
+            $("#favorite_clothing_{{c.pk}}").click(function(){
+            var data = {
+                        'clothing': '{{c.pk}}',
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'add_remove_favorite_user' %}",
+                    data: data,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        //Change image of heart when the user click
+                        let image_heart_source = $("#favorite_clothing_{{c.pk}}").attr("src");
+                        if (image_heart_source.includes('fill')){
+                            $("#favorite_clothing_{{c.pk}}").attr("src", "{% static 'main/heart.png' %}");
+                        }
+                        else{
+                            $("#favorite_clothing_{{c.pk}}").attr("src", "{% static 'main/heart fill.png' %}");
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            })
+        {% endfor %}
 
     </script>
 </body>

@@ -79,6 +79,11 @@
         </div>
     </div>
 
+    <div id="loading-container">
+        <div id="loading-overlay"></div> <!-- Overlay semi-transparente -->
+        <div class="spinner"></div> <!-- Spinner de loading -->
+    </div>
+
     {% include "main/footer.html" %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -117,7 +122,12 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            location.reload();
+                            const loadingContainer = document.getElementById('loading-container');
+                            loadingContainer.style.display = 'block';
+                            setTimeout(function () {
+                                loadingContainer.style.display = 'none';
+                                location.reload();
+                            }, 1000); 
                         },
                         error: function(error) {
                             console.log(error);
@@ -141,7 +151,12 @@
                         },
                         dataType: 'json',
                         success: function(response) {
-                            location.reload();
+                            const loadingContainer = document.getElementById('loading-container');
+                            loadingContainer.style.display = 'block';
+                            setTimeout(function () {
+                                loadingContainer.style.display = 'none';
+                                location.reload();
+                            }, 1000); 
                         },
                         error: function(error) {
                             console.log(error);
