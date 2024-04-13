@@ -1,3 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background-color: #fcfcfc;
+    color: #333;
+}
+
+/* Estilo para o primeiro header */
+.first-header {
+    background-color: #001440; /* Novo tom de azul */
+    color: #fff; /* Cor do texto */
+    padding: 5px 20px;
+    text-align: center; /* Centralizar o conteúdo */
+}
+
+/* Estilo para as informações de contato */
+.contact-info {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizar os itens */
+}
+
+.contact-info > div {
+    margin: 0 10px; /* Espaçamento entre os elementos */
+}
+
+/* Estilo para os ícones */
+.contact-info i {
+    margin-right: 5px; /* Espaçamento entre o ícone e o texto */
+    font-size: 18px; /* Tamanho do ícone */
+}
+
+/* Estilo para os links das redes sociais */
+.social-links a {
+    color: #fff; /* Cor dos ícones */
+    text-decoration: none;
+    margin-left: 10px; /* Espaçamento entre os ícones */
+}
+
+
+.second-header {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd; /* Adiciona uma borda na parte inferior */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreamento */
+}
+
+/* Estilo para a logo */
+.logo-container img {
+    max-width: 80px; /* Define um tamanho máximo para a logo */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+/* Estilo para as opções de roupas */
+.clothing-options {
+    display: flex;
+    justify-content: center;
+}
+
+.clothing-options a {
+    text-decoration: none;
+    color: #010e54;
+    margin: 0 10px; /* Espaçamento entre os itens */
+    transition: color 0.3s, font-weight 0.3s, border-bottom 0.3s; /* Adicionando transição */
+}
+
+.clothing-options a:hover {
+    font-weight: bold; /* Texto em negrito ao passar o mouse */
+}
+
+/* Estilo para as opções do usuário */
+.user-options {
+    margin-right: 100px;
+    display: flex;
+}
+
+.user-options a {
+    text-decoration: none;
+    color: #333;
+    margin-left: 10px; /* Espaçamento entre os itens */
+}
+
+/* Estilo para a barra de busca */
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input {
+    width: 300px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-bar button {
+    background-color: transparent;
+    border: none;
+}
+
+.search-bar button img {
+    width: 20px;
+}
+
 .main-container{
     width: 80%;
     margin: 0 auto;
@@ -211,6 +328,54 @@
 /* Efeito ao passar o mouse */
 .finishBuyButton:hover, .keepBuyButton:hover{
     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+footer {
+    margin-top: 1%;
+    background-color: #ffffff; /* Cor de fundo cinza mais claro */
+    color: #001440; /* Cor do texto */
+    padding: 20px 50px; /* Espaçamento interno */
+    font-size: 14px; /* Tamanho da fonte */
+    box-sizing: border-box; /* Incluir padding no tamanho total do elemento */
+}
+
+/* Estilos para as colunas */
+.footer-columns {
+    display: flex;
+    justify-content: center; /* Centraliza as colunas horizontalmente */
+    flex-wrap: wrap;
+    margin-left: 10%;
+}
+
+/* Estilos para as colunas */
+.footer-column {
+    flex: 1; /* As colunas se expandem igualmente */
+    padding: 0 15px; /* Espaçamento interno */
+}
+
+/* Estilos para os links */
+.footer-column a {
+    color: #001440;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: #cccccc; /* Mudança de cor ao passar o mouse */
+}
+
+/* Estilos para o título da coluna */
+.footer-column h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.footer-column img {
+    width: 50%;
+    height: auto;
 }
 
 #loading-container {

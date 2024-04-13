@@ -1,5 +1,5 @@
 // Função para abrir o modal
-function openModal(modalName) {
+function openLoginRegisterModal(modalName) {
     var modal = document.getElementById(modalName);
     modal.style.display = "block";
     if (modalName == 'signupModal'){
@@ -8,7 +8,7 @@ function openModal(modalName) {
 }
 
 // Função para fechar o modal
-function closeModal(modalName) {
+function closeLoginRegisterModal(modalName) {
     var modal = document.getElementById(modalName);
     modal.style.display = "none";
 }

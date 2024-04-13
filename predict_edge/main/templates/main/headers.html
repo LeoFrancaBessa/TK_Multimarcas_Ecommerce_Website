@@ -41,17 +41,17 @@
         <button><a href="#"><i class="large material-icons">search</i></a></button>
     </div>
     <div class="user-options">
-        <a href="#" onclick="openModal('loginModal')"><i class="large material-icons">person_outline</i></a>
+        <a href="#" onclick="openLoginRegisterModal('loginModal')"><i class="large material-icons">person_outline</i></a>
         <a href="#"><i class="large material-icons">favorite_border</i></i></a>
-        <a href="#"><i class="large material-icons">add_shopping_cart</i></i></a>
+        <a href="#"><i class="large material-icons" id="cartButton">add_shopping_cart</i></i></a>
     </div>
 </header>
 
 <!-- login modal -->
-<div id="loginModal" class="modal">
+<div id="loginModal" class="LoginRegistermodal">
     <!-- Conteúdo do modal -->
-    <div class="modal-content">
-        <button class="close" id="closeLoginModal" onclick="closeModal('loginModal')">&times;</button>
+    <div class="LoginRegistermodal-content">
+        <button class="closeLoginRegisterModal" id="closeLoginModal" onclick="closeLoginRegisterModal('loginModal')">&times;</button>
         <form class="loginForm" id="idLoginForm" method="post">
             <label for="login_email">Email:</label>
             <input type="email" id="login_email" name="login_email" required>
@@ -59,15 +59,15 @@
             <input type="password" id="login_password" name="login_password" required>
             <button type="submit">Entrar</button>
         </form>
-        <p>Ainda não tem uma conta? <a href="#" onclick="openModal('signupModal')">Cadastre-se</a></p>
+        <p>Ainda não tem uma conta? <a href="#" onclick="openLoginRegisterModal('signupModal')">Cadastre-se</a></p>
     </div>
 </div>
 
 <!-- signup modal -->
-<div id="signupModal" class="modal">
+<div id="signupModal" class="LoginRegistermodal">
     <!-- Conteúdo do modal -->
-    <div class="modal-content">
-        <button class="close" onclick="closeModal('signupModal')">&times;</button>
+    <div class="LoginRegistermodal-content">
+        <button class="closeLoginRegisterModal" onclick="closeLoginRegisterModal('signupModal')">&times;</button>
         <form class="signupForm" id="idsignupForm" method="post">
             <label for="first_name">Nome:</label>
             <input type="text" id="first_name" name="first_name" required>
@@ -83,3 +83,61 @@
         </form>
     </div>
 </div>
+
+<!-- cart modal -->
+<div id="Cartmodal" class="Cartmodal">
+    <div class="Cartmodal-content">
+        <span class="Cartclose-btn" id="Cartclose-btn">&times;</span>
+        <p>Conteúdo do modal aqui...</p>
+    </div>
+</div>
+
+<script src="{% static 'main/login_register_script.js' %}"></script>
+
+<script>
+    //Open cart Modal
+    const openModalBtn = document.getElementById('cartButton');
+    const modal = document.getElementById('Cartmodal');
+    const closeBtn = document.getElementById('Cartclose-btn');
+    const modalOverlay = document.createElement('div'); // Novo elemento para o overlay
+    modalOverlay.classList.add('Cartmodal-overlay'); // Adiciona a classe do overlay
+
+    openModalBtn.addEventListener('click', function () {
+        getCartItens()
+        modal.style.display = 'block';
+        document.body.appendChild(modalOverlay);
+        modalOverlay.style.display = 'block'
+        setTimeout(function () {
+            modal.classList.add('Cartmodal-open');
+        }, 10); // Pequeno atraso para a animação ser aplicada corretamente
+    });
+
+    closeBtn.addEventListener('click', function () {
+        modal.classList.remove('Cartmodal-open');
+        document.body.removeChild(modalOverlay);
+        modalOverlay.style.display = 'none'
+        setTimeout(function () {
+            modal.style.display = 'none';
+        }, 300); // Tempo da transição
+    });
+
+    const getCartItens = function(){
+        data_items = null
+        $.ajax({
+            type: "POST",
+            url: "{% url 'get_cart_itens' %}",
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            dataType: 'json',
+            success: function(response) {
+                data_items = response.result;
+                console.log(data_items)
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+</script>

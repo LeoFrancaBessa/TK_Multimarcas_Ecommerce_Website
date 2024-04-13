@@ -70,3 +70,26 @@ def add_remove_favorite_user(request):
         'message': 'Favorito alterado com sucesso!'
     }
     return JsonResponse(message)
+
+def get_cart_itens(request):
+    data_itens = []
+    cart = Cart.objects.filter(user=request.user).first()
+    if not cart:
+        cart = Cart.objects.create(
+            user = request.user
+        )
+    else:
+        for item in cart.items.all():
+            data_itens.append({
+                'id' : item.pk,
+                'clothing_name' : item.clothing.name,
+                'clothing_image' : item.clothing.images.first().image.url,
+                'clothing_size' : item.size.size,
+                'clothing_color' : item.color.color,
+                'quantity' : item.quantity,
+                'price' : item.clothing.price
+            })
+    message = {
+    'result': data_itens
+    }
+    return JsonResponse(message)
