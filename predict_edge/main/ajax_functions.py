@@ -41,6 +41,7 @@ def remove_clothing_cart(request):
     }
     return JsonResponse(message)
 
+
 def change_quantity_clothing_cart(request):
     cartItem = CartItem.objects.get(pk=int(request.POST.get('cartItem')))
     quantity = int(request.POST.get('quantity'))
@@ -52,6 +53,7 @@ def change_quantity_clothing_cart(request):
         'message': 'item alterado com sucesso!'
     }
     return JsonResponse(message)
+
 
 def add_remove_favorite_user(request):
     clothing = Clothing.objects.get(pk=int(request.POST.get('clothing')))
@@ -70,6 +72,7 @@ def add_remove_favorite_user(request):
         'message': 'Favorito alterado com sucesso!'
     }
     return JsonResponse(message)
+
 
 def get_cart_itens(request):
     data_itens = []
