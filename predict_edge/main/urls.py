@@ -12,5 +12,4 @@ urlpatterns = [
     path('remove_clothing_cart/', remove_clothing_cart, name="remove_clothing_cart"),
     path('change_quantity_clothing_cart/', change_quantity_clothing_cart, name="change_quantity_clothing_cart"),
     path('add_remove_favorite_user/', add_remove_favorite_user, name="add_remove_favorite_user"),
-    path('get_cart_itens/', get_cart_itens, name="get_cart_itens"),
 ]
