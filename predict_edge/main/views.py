@@ -1,61 +1,31 @@
-from typing import Any
-from django.views.generic import TemplateView
-from .models import Clothing, Clothes_Sizes, Clothes_Colors, ClothingImage, Cart, CartItem, Favorites
-from django.http import JsonResponse
-
-class IndexView(TemplateView):
-    template_name = 'main/index.html'
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        
-        clothes = Clothing.objects.all()
-        context['clothes'] = clothes
-
-        favorites = Favorites.objects.filter(user=self.request.user).values_list('clothing__pk', flat=True)
-        context['favorites'] = favorites
-        
-        return context
+from .models import Clothing, Cart
+from rest_framework.generics import ListAPIView, RetrieveAPIView
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import ClothingListSerializer, ClothingDetailSerializer, CartSerializer
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import get_user_model
 
 
-class ClothingDetailsView(TemplateView):
-    template_name = 'main/clothing-detail.html'
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs.get('pk')
-        
-        clothing = Clothing.objects.get(id=pk)
-        context['clothing'] = clothing
-        
-        images = ClothingImage.objects.filter(clothing=clothing)
-        context['images'] = images
-        
-        colors = Clothes_Colors.objects.filter(clothing=clothing)
-        context['colors'] = colors
-        
-        sizes = Clothes_Sizes.objects.filter(clothing=clothing)
-        context['sizes'] = sizes
-        
-        clothes = Clothing.objects.all()
-        context['clothes'] = clothes
-        
-        favorites = Favorites.objects.filter(user=self.request.user).values_list('clothing__pk', flat=True)
-        context['favorites'] = favorites
-
-        return context
+class ClothingListView(ListAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Clothing.objects.all()
+    serializer_class = ClothingListSerializer
+    
+    def get_queryset(self):
+        return super().get_queryset()
     
 
-class CartView(TemplateView):
-    template_name = 'main/cart-page.html'
+class ClothindDetailView(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Clothing.objects.all()
+    serializer_class = ClothingDetailSerializer
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        
-        cart = Cart.objects.filter(user=self.request.user.id).first()
-        context['cart'] = cart
-        
-        cartItems = CartItem.objects.filter(cart=cart)
-        context['cartItems'] = cartItems
-        
-        return context
+
+class CartView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        cart = Cart.objects.filter(user=request.user).first()
+        serializer = CartSerializer(cart)
+        return Response(serializer.data)

@@ -194,7 +194,7 @@ class Cart(models.Model):
 
 
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, related_name='cartItems', on_delete=models.CASCADE)
     clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE)
     color = models.ForeignKey(Clothes_Colors, on_delete=models.CASCADE, null=True)
     size = models.ForeignKey(Clothes_Sizes, on_delete=models.CASCADE, null=True)
