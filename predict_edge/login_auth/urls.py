@@ -1,9 +1,12 @@
 # urls.py
 from django.urls import path
-from .views import signup_view, login_view, logout_view
+from .views import CustomTokenObtainPairView, SignupView
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
 urlpatterns = [
-    path('signup/', signup_view, name='signup'),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
+    path('api/signup/', SignupView.as_view(), name='signup'),
+    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

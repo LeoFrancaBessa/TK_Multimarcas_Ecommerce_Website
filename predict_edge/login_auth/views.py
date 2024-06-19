@@ -1,53 +1,36 @@
-from django.contrib.auth import authenticate, login, get_user_model
+import uuid
+from django.contrib.auth import get_user_model
 from django.http.response import HttpResponse as HttpResponse
-from django.shortcuts import redirect
-from django.http import JsonResponse
-from django.contrib.auth import logout
+from rest_framework.views import APIView
+from rest_framework.request import Request
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import SignupSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 User = get_user_model()
 
 
-def login_view(request):
-    if request.method == 'POST':
-        email = request.POST.get('login_email')
-        password = request.POST.get('login_password')
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            return JsonResponse({'message': 'Login bem-sucedido'})
-        else:
-            return JsonResponse({'message': 'Credenciais inválidas'}, status=400)
-    else:
-        return JsonResponse({'message': 'Método não permitido'}, status=405)
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        serializer = self.get_serializer(data=request.data)
 
+        #get_user
+        email = request.data['username']
+        user = User.objects.filter(email=email).first()
+        if user:
+            request.data['username'] = user.username
 
-def signup_view(request):
-    if request.method == 'POST':
-        email = request.POST.get('signup_email')
-        password1 = request.POST.get('signup_password1')
-        password2 = request.POST.get('signup_password2')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        username = email[:30]
-        if password1 and password2:
-            if password1 == password2:
-                if not User.objects.filter(email=email).exists():
-                    user = User.objects.create_user(
-                        username=username,
-                        email=email,
-                        password = password1,
-                        first_name=first_name,
-                        last_name=last_name,
-                    )
-                    if user:
-                        user = authenticate(request, email=email, password=password1)
-                        login(request, user)
-                        return JsonResponse({'message': 'Usuário criado!'})
-                    else:
-                        return JsonResponse({'message': 'Dados inválidos'}, status=400)
-    else:                
-        return JsonResponse({'message': 'Método não permitido'}, status=405)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except Exception as e:
+            raise BaseException(e.args[0])
 
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
-def logout_view(request):
-    logout(request)
-    return redirect('index')
+class SignupView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = SignupSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "User created."})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
