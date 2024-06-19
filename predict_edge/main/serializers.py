@@ -3,7 +3,6 @@ from .models import Clothing, ClothingImage, Clothes_Sizes, Clothes_Colors, Cart
 
 
 class ClothingListSerializer(serializers.ModelSerializer):
-
     image = serializers.SerializerMethodField()
     favorite = serializers.SerializerMethodField()
 
@@ -25,28 +24,24 @@ class ClothingListSerializer(serializers.ModelSerializer):
 
 
 class ClothingImageSerializer(serializers.ModelSerializer):
-     
      class Meta:
           model = ClothingImage
           fields = ('image',)
 
 
 class ClothesSizesSerializer(serializers.ModelSerializer):
-     
      class Meta:
           model = Clothes_Sizes
           fields = ('id', 'size', 'count')
 
 
 class ClothesColorsSerializer(serializers.ModelSerializer):
-     
      class Meta:
           model = Clothes_Colors
           fields = ('id', 'color', 'count')
 
 
 class ClothingDetailSerializer(serializers.ModelSerializer):
-        
         brand = serializers.CharField(source="brand.name", read_only=True)
         category = serializers.CharField(source="category.name", read_only=True)
         material = serializers.CharField(source="material.name", read_only=True)
@@ -62,7 +57,6 @@ class ClothingDetailSerializer(serializers.ModelSerializer):
 
 
 class ClothingCartSerializer(serializers.ModelSerializer):
-
     image = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
@@ -77,7 +71,6 @@ class ClothingCartSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    
     clothing = ClothingCartSerializer(read_only=True)
     size = ClothesSizesSerializer(read_only=True)
     color = ClothesColorsSerializer(read_only=True)
@@ -88,7 +81,6 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
-    
     cartItems = CartItemSerializer(many=True)
 
     class Meta:
