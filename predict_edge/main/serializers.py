@@ -50,10 +50,17 @@ class ClothingDetailSerializer(serializers.ModelSerializer):
         images = ClothingImageSerializer(many=True, read_only=True)
         sizes = ClothesSizesSerializer(many=True, read_only=True)
         colors = ClothesColorsSerializer(many=True, read_only=True)
+        favorite = serializers.SerializerMethodField(read_only=True)
 
         class Meta:
              model = Clothing
              fields = ('id', 'name', 'description', 'price', 'gender', 'brand', 'category', 'material', 'type', 'subtype', 'images', 'sizes', 'colors')
+
+        def get_favorite(self, obj):
+            request = self.context.get('request')
+            if not request.user.is_authenticated:
+                return None
+            return Favorites.objects.filter(user=request.user, clothing=obj).exists()
 
 
 class ClothingCartSerializer(serializers.ModelSerializer):
@@ -70,7 +77,7 @@ class ClothingCartSerializer(serializers.ModelSerializer):
         return None
 
 
-class CartItemSerializer(serializers.ModelSerializer):
+class CartItemListSerializer(serializers.ModelSerializer):
     clothing = ClothingCartSerializer(read_only=True)
     size = ClothesSizesSerializer(read_only=True)
     color = ClothesColorsSerializer(read_only=True)
@@ -81,8 +88,67 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
-    cartItems = CartItemSerializer(many=True)
+    cartItems = CartItemListSerializer(many=True)
 
     class Meta:
         model = Cart 
         fields = ('id', 'cartItems')
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CartItem
+        fields = ('id', 'clothing', 'size', 'color', 'quantity')
+    
+    def create(self, validated_data):
+        user = self.context.get('user')
+        cart = Cart.objects.filter(user=user).first()
+        if not cart:
+            cart = Cart.objects.create(
+                user = user
+            )
+
+        clothing = validated_data['clothing']
+        size = validated_data['size']
+        if size.count == 0:
+            return "Size isn't available."
+        
+        color = validated_data['color']
+        if color.count == 0:
+            return "Color isn't available."
+        
+        cartItem = CartItem.objects.filter(cart=cart, clothing=clothing, size=size, color=color).first()
+        if not cartItem:
+            cartItem = CartItem.objects.create(
+                cart = cart,
+                clothing = clothing,
+                size = size,
+                color = color,
+                quantity = 1
+            )
+        else:
+            cartItem.quantity += 1
+            cartItem.save()
+        return "Clothing add to cart."
+    
+
+class ClothingFavoriteSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Clothing
+        fields = ('id', 'name', 'price', 'image')
+
+    def get_image(self, obj):
+        image = obj.images.first()
+        if image:
+            return image.image.path
+        return None
+
+
+class FavoritesSerializer(serializers.ModelSerializer):
+    clothing = ClothingFavoriteSerializer(read_only=True)
+
+    class Meta:
+        model = Favorites
+        fields = ('id', 'clothing')
