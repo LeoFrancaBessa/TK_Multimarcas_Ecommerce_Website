@@ -1,0 +1,30 @@
+.first-header {
+    background-color: #001440; /* Novo tom de azul */
+    color: #fff; /* Cor do texto */
+    padding: 5px 20px;
+    text-align: center; /* Centralizar o conteúdo */
+}
+
+/* Estilo para as informações de contato */
+.contact-info {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizar os itens */
+}
+
+.contact-info > div {
+    margin: 0 10px; /* Espaçamento entre os elementos */
+}
+
+/* Estilo para os ícones */
+.contact-info i {
+    margin-right: 5px; /* Espaçamento entre o ícone e o texto */
+    font-size: 18px; /* Tamanho do ícone */
+}
+
+/* Estilo para os links das redes sociais */
+.social-links a {
+    color: #fff; /* Cor dos ícones */
+    text-decoration: none;
+    margin-left: 10px; /* Espaçamento entre os ícones */
+}
