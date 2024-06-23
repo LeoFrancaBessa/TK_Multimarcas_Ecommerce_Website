@@ -1,0 +1,10 @@
+.clothing-options {
+    text-decoration: none;
+    color: #010e54;
+    margin: 0 10px; /* Espaçamento entre os itens */
+    transition: color 0.3s, font-weight 0.3s, border-bottom 0.3s; /* Adicionando transição */
+}
+
+.clothing-options:hover {
+    font-weight: bold; /* Texto em negrito ao passar o mouse */
+}

@@ -1,0 +1,8 @@
+.button-icon {
+    background-color: transparent;
+    border: none;
+}
+
+.button-icon img {
+    width: 20px;
+}

@@ -1,0 +1,31 @@
+.second-header {
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd; /* Adiciona uma borda na parte inferior */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreamento */
+}
+
+/* Estilo para a logo */
+.logo-container img {
+    max-width: 80px; /* Define um tamanho máximo para a logo */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.clothing-options-container {
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+}
+
+.user-options-container {
+    margin-right: 100px;
+    display: flex;
+}
