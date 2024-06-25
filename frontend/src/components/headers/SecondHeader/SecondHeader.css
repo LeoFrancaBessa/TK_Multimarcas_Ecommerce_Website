@@ -28,4 +28,5 @@
 .user-options-container {
     margin-right: 100px;
     display: flex;
+    gap: 5%;
 }

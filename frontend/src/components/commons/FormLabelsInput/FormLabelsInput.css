@@ -1,0 +1,16 @@
+.form-label-input input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    display: inline-block;
+    border: none;
+    border-bottom: 1px solid #ccc; /* Adiciona uma linha na parte inferior */
+    margin: 8px 0;
+    outline: none; /* Remove a borda ao focar */
+}
+
+/* Estilo para os rótulos dos campos */
+.form-label-input label {
+    display: block;
+    margin-bottom: 5px;
+}
