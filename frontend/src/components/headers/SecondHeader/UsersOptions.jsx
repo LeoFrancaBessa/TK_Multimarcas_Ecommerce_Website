@@ -3,7 +3,7 @@ import './UsersOptions.css'
 
 function UsersOptions({icon, onclick}){
     return (
-        <a className="user-options" href="#" onclick={onclick}><i class="large material-icons">{icon}</i></a>
+        <a className="user-options" href="#" onClick={onclick}><i className="large material-icons">{icon}</i></a>
     )
 }
 

@@ -3,7 +3,7 @@ import './ButtonIcons.css'
 
 function ButtonIcons({icon}){
     return (
-        <button className="button-icon"><a href="#"><i class="large material-icons">{icon}</i></a></button>
+        <button className="button-icon"><a href="#"><i className="large material-icons">{icon}</i></a></button>
     )
 }
 

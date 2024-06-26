@@ -12,5 +12,5 @@
 /* Estilo para os rótulos dos campos */
 .form-label-input label {
     display: block;
-    margin-bottom: 5px;
+    font-weight:510;
 }

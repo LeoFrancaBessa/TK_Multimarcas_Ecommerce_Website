@@ -1,4 +1,4 @@
-.login-modal {
+.signup-modal {
     position: fixed;
     z-index: 1;
     left: 0;
@@ -17,18 +17,18 @@
 }
 
 /* Estilo para o conteúdo do modal */
-.login-modal-content {
+.signup-modal-content {
     background-color: #fff;
     margin: 10% auto; /* Centraliza verticalmente */
     padding: 20px;
     border-radius: 5px;
     width: 80%;
-    max-width: 400px;
+    max-width: 450px;
     position: relative;
 }
 
 /* Estilo para o botão de fechar */
-.login-modal-close {
+.signup-modal-close {
     color: #000;
     position: absolute;
     top: 0px;
@@ -40,20 +40,20 @@
     cursor: pointer;
 }
 
-.login-modal-close:hover,
-.login-modal-close:focus {
+.signup-modal-close:hover,
+.signup-modal-close:focus {
     color: #000;
     text-decoration: none;
 }
 
-.login-form{
+.signup-form{
     margin-top: 10px;
 }
 
-.login-modal-content p a {
+.signup-modal-content p a {
     color: #000;
 }
 
-.login-modal-content p a:hover {
+.signup-modal-content p a:hover {
     color: #555;
 }
