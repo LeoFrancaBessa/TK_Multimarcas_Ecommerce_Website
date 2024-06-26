@@ -5,26 +5,29 @@ from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import SignupSerializer
+from .serializers import SignupSerializer, CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.exceptions import ValidationError
 User = get_user_model()
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+
+    serializer_class = CustomTokenObtainPairSerializer
+
     def post(self, request: Request, *args, **kwargs) -> Response:
         serializer = self.get_serializer(data=request.data)
 
         #get_user
         email = request.data.get("username")
         if not email:
-            return Response({"message" : "Username is required."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message" : "Informe seu e-mail."}, status=status.HTTP_400_BAD_REQUEST)
         
         user = User.objects.filter(email=email).first()
         if user:
             request.data['username'] = user.username
         else:
-            return Response({"message" : "No active account found with the given credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({"message" : "Usuário incorreto."}, status=status.HTTP_401_UNAUTHORIZED)
         
         try:
             serializer.is_valid(raise_exception=True)

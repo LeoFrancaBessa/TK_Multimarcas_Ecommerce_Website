@@ -2,8 +2,14 @@ from rest_framework import serializers
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
 from .utils import generate_random_string
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    default_error_messages = {
+        "no_active_account": ("Usuário ou senha incorretos.")
+    }
 
 class SignupSerializer(serializers.Serializer):
     email = serializers.CharField(write_only=True, required = True)

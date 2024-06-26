@@ -35,6 +35,8 @@ class CartItemView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        data = request.data
+        data['user'] = request.user
         serializer = CartItemSerializer(data=request.data, context={"user" : request.user})
         if serializer.is_valid():
             message = serializer.save()
