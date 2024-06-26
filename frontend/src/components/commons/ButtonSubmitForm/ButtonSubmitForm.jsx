@@ -3,7 +3,7 @@ import './ButtonSubmitForm.css'
 
 function ButtonSubmitForm({text, onclick}){
     return (
-        <button className="button-submit-form" onClick={onclick} type="submit">{text}</button>
+        <button className="button-submit-form" onClick={onclick}>{text}</button>
     )
 }
 
