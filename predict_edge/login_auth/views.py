@@ -5,43 +5,42 @@ from rest_framework.views import APIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import SignupSerializer, CustomTokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.exceptions import ValidationError
+from .serializers import SignupSerializer, LoginSerializer
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login, logout
 User = get_user_model()
 
 
-class CustomTokenObtainPairView(TokenObtainPairView):
-
-    serializer_class = CustomTokenObtainPairSerializer
-
+class LoginView(APIView):
     def post(self, request: Request, *args, **kwargs) -> Response:
-        serializer = self.get_serializer(data=request.data)
-
-        #get_user
-        email = request.data.get("username")
-        if not email:
-            return Response({"message" : "Informe seu e-mail."}, status=status.HTTP_400_BAD_REQUEST)
-        
-        user = User.objects.filter(email=email).first()
-        if user:
-            request.data['username'] = user.username
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data['username']
+            password = serializer.validated_data['password']
+            user = authenticate(request, email=username, password=password)
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return Response({}, status=status.HTTP_200_OK)
+                else:
+                    return Response({"message" : "Usuário está desativado."}, status=status.HTTP_403_FORBIDDEN)
+            else:
+                return Response({"message" : "Usuário ou senha incorretos"}, status=status.HTTP_403_FORBIDDEN)
         else:
-            return Response({"message" : "Usuário incorreto."}, status=status.HTTP_401_UNAUTHORIZED)
-        
-        try:
-            serializer.is_valid(raise_exception=True)
-        except ValidationError as e:
-            return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"message" : "Dados incorretos."}, status=status.HTTP_400_BAD_REQUEST)
 
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+class LogoutView(LoginRequiredMixin, APIView):
+    def post(self, request: Request, *args, **kwargs) -> Response:
+        logout(request)
+        return Response({}, status=status.HTTP_200_OK)
+
 
 class SignupView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            login(request, user)
             return Response({"message": "User created."}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
