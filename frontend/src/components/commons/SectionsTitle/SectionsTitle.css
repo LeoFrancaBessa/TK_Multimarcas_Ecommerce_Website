@@ -1,0 +1,17 @@
+.sections-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 2%;
+    margin-top: 30px;
+    padding-bottom: 1%;
+    color: #001440;
+}
+
+.sections-title:after {
+    content:"";
+    display:block;
+    width: 6em;
+    max-width:70%;
+    border-bottom: 0.1em solid #001440;
+    margin: 0 auto;
+}

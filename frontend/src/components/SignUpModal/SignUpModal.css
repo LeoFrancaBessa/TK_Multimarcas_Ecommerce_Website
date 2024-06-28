@@ -57,3 +57,8 @@
 .signup-modal-content p a:hover {
     color: #555;
 }
+
+.signup-form-error{
+    color: red;
+    font-size: medium;
+}

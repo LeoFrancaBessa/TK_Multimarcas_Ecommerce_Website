@@ -14,20 +14,20 @@ function LoginModal({isOpen, onClose}){
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    if(!isOpen){
-        return null
-    }
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');
-        const data = await login(username, password);
-        if ('message' in data){
-            setError(data.message);
+        const [data, ok] = await login(username, password);
+        if (!ok){
+            setError(data.message[0]);
         }
         else{
             onClose();
         }
+    }
+
+    if(!isOpen){
+        return null
     }
 
     return (
@@ -44,7 +44,7 @@ function LoginModal({isOpen, onClose}){
                     <p>Ainda não tem uma conta? <a href="#" onClick={openSignupModal}>Cadastre-se</a></p>
                 </div>
             </div>
-        <SignUpModal isOpen={isSignUpModalOpen} onClose={closeSignupModal} />
+        <SignUpModal isOpen={isSignUpModalOpen} onClose={closeSignupModal} onCloseLoginModal={onClose} />
         </div>
     )
 }
