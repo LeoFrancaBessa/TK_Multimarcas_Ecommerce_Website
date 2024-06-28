@@ -23,11 +23,11 @@ class LoginView(APIView):
                     login(request, user)
                     return Response({}, status=status.HTTP_200_OK)
                 else:
-                    return Response({"message" : "Usuário está desativado."}, status=status.HTTP_403_FORBIDDEN)
+                    return Response({"message" : ["Usuário está desativado."]}, status=status.HTTP_403_FORBIDDEN)
             else:
-                return Response({"message" : "Usuário ou senha incorretos"}, status=status.HTTP_403_FORBIDDEN)
+                return Response({"message" : ["Usuário ou senha incorretos"]}, status=status.HTTP_403_FORBIDDEN)
         else:
-            return Response({"message" : "Dados incorretos."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message" : ["Dados incorretos."]}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LogoutView(LoginRequiredMixin, APIView):
@@ -41,6 +41,7 @@ class SignupView(APIView):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+            user = authenticate(request, email=request.data['email'], password=request.data['password1'])
             login(request, user)
-            return Response({"message": "User created."}, status=status.HTTP_200_OK)
+            return Response({}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

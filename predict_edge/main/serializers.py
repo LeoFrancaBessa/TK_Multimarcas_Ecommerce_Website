@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Clothing, ClothingImage, Clothes_Sizes, Clothes_Colors, Cart, CartItem, Favorites
+from .models import Clothing, ClothingImage, Clothes_Sizes, Clothes_Colors, Cart, CartItem, Favorites, UserProfile
 
 
 class ClothingListSerializer(serializers.ModelSerializer):
@@ -152,3 +152,13 @@ class FavoritesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorites
         fields = ('id', 'clothing')
+
+
+class UserProfileCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        exclude = ('user',)
+
+    def create(self, validated_data):
+        UserProfile.objects.create(**validated_data)
+        return super().create(validated_data)

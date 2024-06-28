@@ -6,13 +6,12 @@ from django.contrib.auth import get_user_model
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE, primary_key=True)
-    phone = models.CharField(max_length=20)
-    date_of_birth = models.DateField()
+    phone = models.CharField(null=True, blank=True,max_length=20)
+    date_of_birth = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=2, choices=[
                                                     ("M", "MASCULINO"),
                                                     ("F", "FEMININO"),
                                                 ])
-    country = models.CharField(max_length=200)
     state = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     neighborhood = models.CharField(max_length=200)

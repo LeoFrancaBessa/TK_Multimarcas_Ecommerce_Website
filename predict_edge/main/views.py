@@ -3,7 +3,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ClothingListSerializer, ClothingDetailSerializer, CartSerializer, CartItemSerializer, FavoritesSerializer
+from .serializers import ClothingListSerializer, ClothingDetailSerializer, CartSerializer, CartItemSerializer, FavoritesSerializer, UserProfileCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -55,9 +55,9 @@ class CartItemView(APIView):
             serializer = CartItemSerializer(cartItem, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-            return Response({"message" : "Update successful."}, status=status.HTTP_200_OK)
+            return Response({"message" : ["Update successful."]}, status=status.HTTP_200_OK)
         else:
-            return Response({"message" : "Not found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message" : ["Not found"]}, status=status.HTTP_404_NOT_FOUND)
 
 
 class FavoritesView(APIView):
@@ -74,7 +74,7 @@ class FavoritesView(APIView):
         serializer = FavoritesSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message" : "Favorite clothing added to user."}, status=status.HTTP_200_OK)
+            return Response({"message" : ["Favorite clothing added to user."]}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
@@ -82,3 +82,16 @@ class FavoritesView(APIView):
         if favorite:
             favorite.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+class UserProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        data = request.data
+        data["user"] = request.user
+        serializer = UserProfileCreateSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message" : ["User profile created."]}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
