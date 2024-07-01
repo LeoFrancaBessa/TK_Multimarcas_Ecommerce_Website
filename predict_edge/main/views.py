@@ -8,7 +8,6 @@ from rest_framework.permissions import IsAuthenticated
 
 
 class ClothingListView(ListAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Clothing.objects.all()
     serializer_class = ClothingListSerializer
     
@@ -17,14 +16,11 @@ class ClothingListView(ListAPIView):
     
 
 class ClothindDetailView(RetrieveAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Clothing.objects.all()
     serializer_class = ClothingDetailSerializer
 
 
 class CartView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request):
         cart = Cart.objects.filter(user=request.user).first()
         serializer = CartSerializer(cart)
@@ -32,8 +28,6 @@ class CartView(APIView):
     
 
 class CartItemView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def post(self, request):
         data = request.data
         data['user'] = request.user
@@ -60,25 +54,28 @@ class CartItemView(APIView):
             return Response({"message" : ["Not found"]}, status=status.HTTP_404_NOT_FOUND)
 
 
-class FavoritesView(APIView):
-    permission_classes = [IsAuthenticated]
-
+class FavoritesView(APIView):    
     def get(self, request):
         queryset = Favorites.objects.filter(user=request.user)
         serializer = FavoritesSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
+        print("####################################")
+        print("Headers:", request.headers)
+        print("Cookies:", request.COOKIES)
+        print("User:", request.user)
         data = request.data
         data["user"] = request.user.pk
         serializer = FavoritesSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message" : ["Favorite clothing added to user."]}, status=status.HTTP_200_OK)
+            return Response({}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
-        favorite = Favorites.objects.filter(pk=pk)
+        clothing = Clothing.objects.filter(pk=pk).first()
+        favorite = Favorites.objects.filter(clothing=clothing, user=request.user).first()
         if favorite:
             favorite.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

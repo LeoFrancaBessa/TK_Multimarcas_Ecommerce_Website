@@ -3,7 +3,7 @@ from .models import UserProfile, Brand, Category, Material, Type, SubType, Cloth
 
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'phone', 'date_of_birth', 'gender', 'country', 'state', 'city', 'neighborhood', 'address', 'address_number']
+    list_display = ['user', 'phone', 'date_of_birth', 'gender', 'state', 'city', 'neighborhood', 'address', 'address_number']
     # Adicione outros campos conforme necessário
 
 @admin.register(Brand)

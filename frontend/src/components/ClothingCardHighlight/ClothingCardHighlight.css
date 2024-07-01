@@ -1,0 +1,93 @@
+.destaque {
+    position: relative;
+    width: 276px;
+    transition: outline 0.3s ease;
+}
+
+.destaque:hover {
+    outline: 1px solid #001440;/* Aumenta a sombra ao passar o mouse */
+}
+
+.destaque img {
+    width: 256px;
+    height: 320px;
+    border: 5px #000;
+    border-radius: 5px;
+    margin-left: 3.5%;
+    margin-top: 3%;
+}
+
+.btn-mais-detalhes {
+    position: absolute;
+    bottom: 32.5%; /* Distância do botão em relação ao fundo */
+    left: 50%; /* Posiciona o botão no centro horizontalmente */
+    width: 93%; /* Ocupa toda a largura do card */
+    transform: translateX(-50%); /* Centraliza o botão */
+    background-color: #001440;
+    color: #fff;
+    padding: 5px 10px;
+    opacity: 0;
+    border: none;
+}
+
+.favorite-heart{
+    position: absolute;
+    bottom: 92%; /* Distância do botão em relação ao fundo */
+    left: 81%; /* Posiciona o botão no centro horizontalmente */
+    opacity: 0;
+    width: 15%;
+    align-items: center;
+    opacity: 1;
+    padding-left: 5px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.favorite-heart img{
+    width: 60%;
+    height: auto;
+}
+
+.destaque:hover .btn-mais-detalhes {
+    opacity: 1;
+}
+
+.info {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.info-clothe-name{
+    height: 30px; 
+}
+
+.clothe-name, .price {
+    text-align: justify;
+    font-size:small;
+    margin: 0;
+    color: #000000;
+}
+
+.info h3{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.price {
+    font-size: large;
+    color: #001440;
+    display: block; /* Torna o <p> um bloco */
+    margin-top: 5px; /* Espaçamento entre o <h3> e o <p> */
+}
+
+.price-parcelado {
+    text-align: justify;
+    font-size: medium;
+    color: #001440;
+    display: block; /* Torna o <p> um bloco */
+    margin-top: 5px; /* Espaçamento entre o <h3> e o <p> */
+}

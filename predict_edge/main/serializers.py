@@ -13,7 +13,7 @@ class ClothingListSerializer(serializers.ModelSerializer):
     def get_image(self, obj):
         image = obj.images.first()
         if image:
-            return image.image.path
+            return image.image.url
         return None
     
     def get_favorite(self, obj):

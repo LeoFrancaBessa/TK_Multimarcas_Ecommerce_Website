@@ -1,0 +1,11 @@
+.grid-destaque-container {
+    max-width: 82%; /* Defina o máximo de largura como 80% da largura da tela */
+    margin: 0 auto; /* Isso centralizará o container na tela */
+}
+
+.grid-destaque {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 4%;
+    justify-items: center;
+}
