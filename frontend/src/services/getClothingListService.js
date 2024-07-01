@@ -1,4 +1,4 @@
-const API_URL_GET = 'http://127.0.0.1:8000/api/clothing_list'
+const API_URL_GET = 'http://127.0.0.1:8000/api/clothing_list/'
 
 export async function getClothingList() {
     const response = await fetch(API_URL_GET, {

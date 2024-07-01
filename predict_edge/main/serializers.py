@@ -147,11 +147,10 @@ class ClothingFavoriteSerializer(serializers.ModelSerializer):
 
 
 class FavoritesSerializer(serializers.ModelSerializer):
-    clothing = ClothingFavoriteSerializer(read_only=True)
 
     class Meta:
         model = Favorites
-        fields = ('id', 'clothing')
+        fields = ('id', 'user', 'clothing')
 
 
 class UserProfileCreateSerializer(serializers.ModelSerializer):

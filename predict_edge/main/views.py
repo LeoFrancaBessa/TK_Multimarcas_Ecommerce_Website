@@ -55,10 +55,6 @@ class CartItemView(APIView):
 
 
 class FavoritesView(APIView):    
-    def get(self, request):
-        queryset = Favorites.objects.filter(user=request.user)
-        serializer = FavoritesSerializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
         print("####################################")
