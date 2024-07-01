@@ -6,8 +6,7 @@ import { createFavorite, deleteFavorite } from "../../services/favoriteService";
 
 function ClothingCardHighlight({id, image, favorite, clothing_name, clothing_price}){
     const [isFavorite, setFavorite] = useState(favorite)
-    
-    const toggleFavorite = function(){
+    const toggleFavorite = () => {
         if (!isFavorite){
             createFavorite(id);
             setFavorite(true);

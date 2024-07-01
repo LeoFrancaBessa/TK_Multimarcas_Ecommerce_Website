@@ -55,7 +55,6 @@ class CartItemView(APIView):
 
 
 class FavoritesView(APIView):    
-    
     def post(self, request):
         print("####################################")
         print("Headers:", request.headers)

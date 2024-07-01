@@ -9,7 +9,6 @@ function ClothingGrid(){
     useEffect(() => {
         async function fetchClothingList() {
             const data = await getClothingList();
-            console.log(data);
             setClothingList(data);
         }
 
