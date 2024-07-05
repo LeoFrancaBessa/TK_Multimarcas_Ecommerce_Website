@@ -16,7 +16,7 @@ function ClothingCardHighlight({id, image, favorite, clothing_name, clothing_pri
             setFavorite(false);
         }
     }
-
+    
     return (
         <div className="destaque" key={id}>
             <img src={image} alt="Roupa 1"></img>

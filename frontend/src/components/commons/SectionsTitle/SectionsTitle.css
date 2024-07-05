@@ -10,8 +10,8 @@
 .sections-title:after {
     content:"";
     display:block;
-    width: 6em;
+    width: 9em;
     max-width:70%;
-    border-bottom: 0.1em solid #001440;
+    border-bottom: 0.15em solid #001440;
     margin: 0 auto;
 }

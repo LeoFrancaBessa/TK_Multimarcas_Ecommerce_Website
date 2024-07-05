@@ -11,9 +11,10 @@ class ClothingListSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'price', 'image', 'favorite')
 
     def get_image(self, obj):
+        request = self.context.get('request')
         image = obj.images.first()
         if image:
-            return image.image.url
+            return request.build_absolute_uri(image.image.url)
         return None
     
     def get_favorite(self, obj):

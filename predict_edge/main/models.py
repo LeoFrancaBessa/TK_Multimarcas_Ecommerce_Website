@@ -57,30 +57,27 @@ class Material(models.Model):
         return self.name
 
 
-class Type(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nome")
-    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+class Attribute(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Atributo")
 
     class Meta:
-        ordering = ["name"]
-        verbose_name = "Tipo"
-        verbose_name_plural = "Tipos"
+        verbose_name = "Atributo"
+        verbose_name_plural = "Atributos"
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
 
 
-class SubType(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nome")
-    description = models.TextField(null=True, blank=True, verbose_name="Descrição")
+class AttributeValue(models.Model):
+    attribute = models.ForeignKey(Attribute, on_delete=models.CASCADE, related_name="values", verbose_name="Atributo")
+    value = models.CharField(max_length=100, verbose_name="Valor")
 
     class Meta:
-        ordering = ["name"]
-        verbose_name = "SubTipo"
-        verbose_name_plural = "SubTipos"
+        verbose_name = "Valor do Atributo"
+        verbose_name_plural = "Valores do Atributo"
 
-    def __str__(self) -> str:
-        return self.name
+    def __str__(self):
+        return f"{self.attribute.name}: {self.value}"
 
 
 class Clothing(models.Model):
@@ -92,8 +89,7 @@ class Clothing(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, verbose_name="Marca")
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name="Categoria")
     material = models.ForeignKey(Material, on_delete=models.SET_NULL, null=True, verbose_name="Material")
-    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, verbose_name="Tipo")
-    subtype = models.ForeignKey(SubType, on_delete=models.SET_NULL, null=True, verbose_name="SubTipo")
+    attributes = models.ManyToManyField(AttributeValue, blank=True, verbose_name='Atributos')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Criado Em")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Atualizado Em")
 

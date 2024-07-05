@@ -56,10 +56,6 @@ class CartItemView(APIView):
 
 class FavoritesView(APIView):    
     def post(self, request):
-        print("####################################")
-        print("Headers:", request.headers)
-        print("Cookies:", request.COOKIES)
-        print("User:", request.user)
         data = request.data
         data["user"] = request.user.pk
         serializer = FavoritesSerializer(data=data)
@@ -85,5 +81,5 @@ class UserProfileView(APIView):
         serializer = UserProfileCreateSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message" : ["User profile created."]}, status=status.HTTP_200_OK)
+            return Response({}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

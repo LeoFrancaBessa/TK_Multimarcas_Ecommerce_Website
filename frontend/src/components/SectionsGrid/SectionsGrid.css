@@ -1,0 +1,22 @@
+.sections-container {
+    display: flex;
+    max-width: 83%; /* Defina o máximo de largura como 80% da largura da tela */
+    margin: 0 auto; /* Isso centralizará o container na tela */
+}
+
+.section-card {
+    overflow: hidden;
+    border-radius: 5px;
+    margin-right: 1%;
+    transition: transform 0.3s ease;
+}
+
+.section-card-img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.section-card:hover .section-card-img {
+    transform: scale(1.1);
+}
