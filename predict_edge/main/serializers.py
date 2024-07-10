@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Clothing, ClothingImage, Clothes_Sizes, Clothes_Colors, Cart, CartItem, Favorites, UserProfile
+from .models import Clothing, ClothingImage, Clothes_Sizes, Clothes_Colors, Cart, CartItem, Favorites, UserProfile, AttributeValue
 
 
 class ClothingListSerializer(serializers.ModelSerializer):
@@ -24,6 +24,13 @@ class ClothingListSerializer(serializers.ModelSerializer):
         return Favorites.objects.filter(user=request.user, clothing=obj).exists()
 
 
+class AttributeValueSerializer(serializers.ModelSerializer):
+    attribute_name = serializers.CharField(source="attribute.name")
+    class Meta:
+        model = AttributeValue
+        fields = ('attribute_name', 'value')
+
+
 class ClothingImageSerializer(serializers.ModelSerializer):
      class Meta:
           model = ClothingImage
@@ -46,8 +53,7 @@ class ClothingDetailSerializer(serializers.ModelSerializer):
         brand = serializers.CharField(source="brand.name", read_only=True)
         category = serializers.CharField(source="category.name", read_only=True)
         material = serializers.CharField(source="material.name", read_only=True)
-        type = serializers.CharField(source="type.name", read_only=True)
-        subtype = serializers.CharField(source="subtype.name", read_only=True)
+        attributes = AttributeValueSerializer(many=True, read_only=True)
         images = ClothingImageSerializer(many=True, read_only=True)
         sizes = ClothesSizesSerializer(many=True, read_only=True)
         colors = ClothesColorsSerializer(many=True, read_only=True)
@@ -55,7 +61,7 @@ class ClothingDetailSerializer(serializers.ModelSerializer):
 
         class Meta:
              model = Clothing
-             fields = ('id', 'name', 'description', 'price', 'gender', 'brand', 'category', 'material', 'type', 'subtype', 'images', 'sizes', 'colors', 'favorite')
+             fields = ('id', 'name', 'description', 'price', 'gender', 'brand', 'category', 'material', 'attributes', 'images', 'sizes', 'colors', 'favorite')
 
         def get_favorite(self, obj):
             request = self.context.get('request')

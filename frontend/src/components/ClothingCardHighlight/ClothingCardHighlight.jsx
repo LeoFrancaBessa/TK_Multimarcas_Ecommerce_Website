@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { Link } from "react-router-dom";
 import './ClothingCardHighlight.css'
 import heartFill from '../../assets/images/heartFill.png'
 import heartOutline from '../../assets/images/heartOutline.png'
@@ -20,7 +21,7 @@ function ClothingCardHighlight({id, image, favorite, clothing_name, clothing_pri
     return (
         <div className="destaque" key={id}>
             <img src={image} alt="Roupa 1"></img>
-            <a href="#"> <button className="btn-mais-detalhes">Mais Detalhes</button> </a>
+            <Link to={`roupa/${id}/${clothing_name}`}> <button className="btn-mais-detalhes">Mais Detalhes</button> </Link>
             <span className="favorite-heart">
             <img src={isFavorite ? heartFill : heartOutline} onClick={toggleFavorite}></img>
             </span>
