@@ -6,7 +6,7 @@ export async function createFavorite(clothing){
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': csrftoken,
         },
         body: JSON.stringify({clothing}),
         credentials: 'include',

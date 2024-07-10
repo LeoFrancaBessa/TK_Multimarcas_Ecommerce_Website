@@ -113,7 +113,7 @@ class ClothingImage(models.Model):
 
 
 class Clothes_Sizes(models.Model):
-    clothing = models.ForeignKey(Clothing, related_name='sizes', on_delete=models.CASCADE)
+    clothing = models.ForeignKey(Clothing, related_name='sizes', on_delete=models.CASCADE, null=True);
     size_choices = [
         ('PP', 'PP'),
         ('P', 'P'),
@@ -122,7 +122,7 @@ class Clothes_Sizes(models.Model):
         ('GG', 'GG'),
     ]
     size = models.CharField(max_length=4, choices=size_choices, verbose_name="Tamanho")
-    count = models.IntegerField()
+    count = models.IntegerField(verbose_name="Quantidade")
 
     class Meta:
         verbose_name = "Tamanho Roupa"
@@ -130,7 +130,7 @@ class Clothes_Sizes(models.Model):
 
 
 class Clothes_Colors(models.Model):
-    clothing = models.ForeignKey(Clothing, related_name='colors', on_delete=models.CASCADE)
+    clothing = models.ForeignKey(Clothing, related_name='colors', on_delete=models.CASCADE, null=True)
     COLOR_PALETTE = [
         ('#FFFFFF', 'branco'),
         ('#000000', 'preto'),
@@ -171,7 +171,7 @@ class Clothes_Colors(models.Model):
         ('#2F4F4F', 'cinza ardósia escuro')
     ]
     color = ColorField(choices=COLOR_PALETTE, verbose_name="Cor")
-    count = models.IntegerField()
+    count = models.IntegerField(verbose_name="Quantidade")
 
     class Meta:
         verbose_name = "Cor Roupa"

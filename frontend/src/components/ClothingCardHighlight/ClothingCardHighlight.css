@@ -1,11 +1,12 @@
 .destaque {
     position: relative;
     width: 276px;
-    transition: outline 0.5s ease-out;
+    transition: transform 0.3s ease;
 }
 
 .destaque:hover {
     outline: 1px solid #001440;/* Aumenta a sombra ao passar o mouse */
+    transform: scale(1.03);
 }
 
 .destaque img {
@@ -20,8 +21,8 @@
 .btn-mais-detalhes {
     position: absolute;
     bottom: 32.5%; /* Distância do botão em relação ao fundo */
-    left: 50%; /* Posiciona o botão no centro horizontalmente */
-    width: 93%; /* Ocupa toda a largura do card */
+    left: 50.5%; /* Posiciona o botão no centro horizontalmente */
+    width: 92.7%; /* Ocupa toda a largura do card */
     transform: translateX(-50%); /* Centraliza o botão */
     background-color: #001440;
     color: #fff;

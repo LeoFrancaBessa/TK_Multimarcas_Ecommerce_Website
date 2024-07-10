@@ -55,7 +55,7 @@ class ClothingDetailSerializer(serializers.ModelSerializer):
 
         class Meta:
              model = Clothing
-             fields = ('id', 'name', 'description', 'price', 'gender', 'brand', 'category', 'material', 'type', 'subtype', 'images', 'sizes', 'colors')
+             fields = ('id', 'name', 'description', 'price', 'gender', 'brand', 'category', 'material', 'type', 'subtype', 'images', 'sizes', 'colors', 'favorite')
 
         def get_favorite(self, obj):
             request = self.context.get('request')
