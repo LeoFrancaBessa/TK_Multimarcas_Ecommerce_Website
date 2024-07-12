@@ -1,7 +1,7 @@
 import './App.css';
 import './assets/styles/globals.css'
-import Home from './pages/Home';
-import ClothingDetail from './pages/ClothingDetail';
+import HomePage from './pages/HomePage';
+import ClothingDetailsPage from './pages/ClothingDetailsPage';
 
 import {
   createBrowserRouter,
@@ -11,11 +11,11 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <HomePage />,
   },
   {
     path: "roupa/:clothingID/:clothingTitle",
-    element: <ClothingDetail />,
+    element: <ClothingDetailsPage />,
   },
 ]);
 

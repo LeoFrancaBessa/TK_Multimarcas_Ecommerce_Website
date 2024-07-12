@@ -36,8 +36,8 @@ function LoginModal({isOpen, onClose}){
                 <div className="login-modal-content">
                     <button className="login-modal-close" onClick={onClose}>&times;</button>
                     <form className="login-form" method="post">
-                        <FormLabelsInput id_element={"id_email"} label={"Email"} type={"email"} value={username} onChange={(e) => setUsername(e.target.value)}/>
-                        <FormLabelsInput id_element={"id_password"} label={"Senha"} type={"password"} value={password} onChange={(e) => setPassword(e.target.value)}/>
+                        <FormLabelsInput id_element={"id_email"} label={"Email"} type={"email"} value={username} onChange={(e) => setUsername(e.target.value)} width={"100%"}/>
+                        <FormLabelsInput id_element={"id_password"} label={"Senha"} type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} width={"100%"}/>
                         <ButtonSubmitForm text={"Entrar"} onclick={handleSubmit}/>
                         <p className="login-form-error">{error}</p>
                     </form>

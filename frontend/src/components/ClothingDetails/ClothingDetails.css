@@ -1,0 +1,259 @@
+/* Detalhes da roupa */
+.clothing-details {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Alinhar o conteúdo no topo */
+    margin-top: 3%;
+}
+
+.main-content {
+    display: flex;
+    align-items: flex-start; /* Alinhar o conteúdo no topo */
+}
+
+.clothing-info-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.clothing-title-container {
+    width: 600px;
+    height: 80px;
+    border-bottom: 1px solid #001440;
+    display: grid;
+    justify-items: left;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25%;
+}
+
+.clothing-title {
+    color: #001440;
+    width: 420px;
+}
+
+.clothing-title h2 {
+    font-size: 24px; /* Tamanho da fonte do título */
+    font-weight: 600;
+    margin: 0; /* Remover margens padrão */
+}
+
+.clothing-title p {
+    font-size: small;
+    color: #001440;
+    margin-top: 2%;
+    margin-right: 68%;
+}
+
+.clothing-title-heart img {
+    cursor: pointer;
+    width: 90%;
+    height: auto;
+}
+
+.additional-info {
+    /* Estilização da coluna para outras informações */
+    flex-grow: 1; /* Permite que a coluna cresça para preencher o espaço disponível */
+    /* Adicione aqui os estilos desejados para a coluna */
+}
+
+.price-info{
+    font-size: 25px;
+    margin-top: 10%;
+    margin-bottom: 0%;
+    color: #001440;
+}
+
+.color-title{
+    color: #001440;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 1%;
+    margin-top: 15%;
+}
+
+.color-selection {
+    display: flex;
+    margin-top: 20px;
+}
+
+.color-border{
+    width: 44px;
+    height: 44px;
+    border-radius: 56px;
+    border: 1px solid #e0e0e0;
+    margin-right: 5%;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out; /* transição suave da cor da borda */
+}
+
+.color-border:hover {
+    border-color: #001440; /* cor da borda ao passar o mouse */
+}
+
+.color-border-selected{
+    width: 44px;
+    height: 44px;
+    border-radius: 56px;
+    border: 1px solid #001440;
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+.color-option {
+    margin-top: 3px;
+    margin-left: 3px;
+    width: 36px;
+    height: 36px;
+    display: block;
+    position: relative;
+    z-index: -1;
+    border-radius: 50px;
+}
+
+.size-title{
+    color: #001440;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 1%;
+    margin-top: 15%;
+}
+
+.size-container {
+    margin-left: 4%;
+    display: flex;
+    margin-left: 1%;
+}
+
+.size-border{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #e0e0e0;
+    margin-right: 5%;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out; /* transição suave da cor da borda */
+}
+
+.size-border:hover {
+    border-color: #001440; /* cor da borda ao passar o mouse */
+}
+
+.size-border-selected{
+    width: 50px;
+    height: 50px;
+    border: 1px solid #001440;
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+.size-option {
+    padding: 5px;
+    color: #001440;
+    font-size: 25px;
+    margin-right: 15px;
+}
+
+.buy-button {
+    margin-top: 60px;
+    padding: 10px 20px; /* Padding interno */
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #39c018; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda padrão */
+    cursor: pointer; /* Cursor ao passar o mouse */
+    transition: box-shadow 0.2s ease-in-out; /* Transição suave */
+    width: 100%;
+}
+
+/* Efeito ao passar o mouse */
+.buy-button:hover {
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.frete-title{
+    margin-top: 3.5%;
+    color: #001440;
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 1%;
+}
+
+.cpfContainer {
+    display: inline-flex;
+}
+
+.cpfButton {
+    padding: 6px;
+    margin-left: 5%;
+    border-radius: 5px; /* Bordas arredondadas */
+    background-color: #001440; /* Cor de fundo */
+    color: white; /* Cor do texto */
+    border: none; /* Remover borda padrão */
+    cursor: pointer; /* Cursor ao passar o mouse */
+    transition: box-shadow 0.2s ease-in-out; /* Transição suave */
+}
+
+.cpfButton:hover {
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.cpfInput{
+    margin-top: 0%;
+    background: none;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #001440;
+    border-radius: 5px;
+}
+ 
+.main-image {
+    width: 500px;
+    height: 624px;
+    margin-right: 20px;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.thumbnail-images {
+    margin-right: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 90px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.thumbnail:hover {
+    opacity: 0.7;
+}
+
+/* Destaque da imagem ao clicar */
+.image-highlight {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.image-highlight img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}

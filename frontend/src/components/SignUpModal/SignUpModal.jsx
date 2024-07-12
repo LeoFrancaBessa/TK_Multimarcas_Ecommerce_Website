@@ -33,10 +33,10 @@ function SignUpModal({isOpen, onClose, onCloseLoginModal}){
             <div className="signup-modal-content">
                 <button className="signup-modal-close" onClick={onClose}>&times;</button>
                 <form className="signup-form" method="post">
-                    <FormLabelsInput id_element={"id_name"} label={"Nome"} type={"text"} value={name} onChange={(e) => setName(e.target.value)}/>
-                    <FormLabelsInput id_element={"id_signup_email"} label={"Email"} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)}/>
-                    <FormLabelsInput id_element={"id_password1"} label={"Senha"} type={"password"} value={password1} onChange={(e) => setPassword1(e.target.value)}/>
-                    <FormLabelsInput id_element={"id_password2"} label={"Repita sua senha"} type={"password"} value={password2} onChange={(e) => setPassword2(e.target.value)}/>
+                    <FormLabelsInput id_element={"id_name"} label={"Nome"} type={"text"} value={name} onChange={(e) => setName(e.target.value)} width={"98%"}/>
+                    <FormLabelsInput id_element={"id_signup_email"} label={"Email"} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} width={"98%"}/>
+                    <FormLabelsInput id_element={"id_password1"} label={"Senha"} type={"password"} value={password1} onChange={(e) => setPassword1(e.target.value)} width={"98%"}/>
+                    <FormLabelsInput id_element={"id_password2"} label={"Repita sua senha"} type={"password"} value={password2} onChange={(e) => setPassword2(e.target.value)} width={"98%"}/>
                     <ButtonSubmitForm text={"Cadastrar"} onclick={handleSubmit}/>
                     <p className="signup-form-error">{error}</p>
                 </form>
