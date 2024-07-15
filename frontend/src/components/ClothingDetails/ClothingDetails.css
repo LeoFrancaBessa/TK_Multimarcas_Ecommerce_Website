@@ -126,8 +126,8 @@
 }
 
 .size-border{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: 1px solid #e0e0e0;
     margin-right: 5%;
     cursor: pointer;
@@ -139,18 +139,16 @@
 }
 
 .size-border-selected{
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border: 1px solid #001440;
     margin-right: 5%;
     cursor: pointer;
 }
 
 .size-option {
-    padding: 5px;
     color: #001440;
     font-size: 25px;
-    margin-right: 15px;
 }
 
 .buy-button {
@@ -256,4 +254,9 @@
     max-width: 90%;
     max-height: 90%;
     object-fit: contain;
+}
+
+.add-clothing-error{
+    color: red;
+    font-size: medium;
 }

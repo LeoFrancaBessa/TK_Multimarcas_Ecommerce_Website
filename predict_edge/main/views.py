@@ -35,7 +35,7 @@ class CartItemView(APIView):
         if serializer.is_valid():
             message = serializer.save()
             return Response({"message": message}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"message" : ["Selecione um tamanho e uma cor."]}, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
         cartItem = CartItem.objects.filter(pk=pk).first()

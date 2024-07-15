@@ -1,7 +1,9 @@
-const API_URL_FAVORITE = 'http://127.0.0.1:8000/api/favorites/'
+import getCookie from './getCookieService'
+
+const API_URL_FAVORITE = 'http://127.0.0.1:8000/api/favorites/';
+const csrftoken = getCookie('csrftoken');
 
 export async function createFavorite(clothing){
-    const csrftoken = getCookie('csrftoken');
     const response = await fetch(API_URL_FAVORITE, {
         method: 'POST',
         headers: {
@@ -17,7 +19,6 @@ export async function createFavorite(clothing){
 }
 
 export async function deleteFavorite(clothing){
-    const csrftoken = getCookie('csrftoken');
     const response = await fetch(API_URL_FAVORITE + clothing, {
         method: 'DELETE',
         headers: {
@@ -26,20 +27,4 @@ export async function deleteFavorite(clothing){
         },
         credentials: 'include',
     });
-}
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
 }

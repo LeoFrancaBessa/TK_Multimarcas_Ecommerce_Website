@@ -6,12 +6,17 @@ import SearchBar from '../../commons/SearchBar/SearchBar'
 import ButtonIcons from '../../commons/ButtonIcons/ButtonIcons'
 import UserOptions from './UsersOptions'
 import LoginModal from "../../LoginModal/LoginModal";
+import SideModalCartItens from "../../SideModalCartItens/SideModalCartItens";
 
 function SecondHeader(){
     const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-
     const openLoginModal= () => setLoginModalOpen(true);
     const closeLoginModal = () => setLoginModalOpen(false);
+
+    const [isCartModalOpen, setCartModalOpen] = useState(false);
+    const openCartModal= () => setCartModalOpen(true);
+    const closeCartModal = () => setCartModalOpen(false);
+
     return (
         <div>
             <header className="second-header">
@@ -33,10 +38,11 @@ function SecondHeader(){
             <div className="user-options-container">
                 <UserOptions icon={"person_outline"} onclick={openLoginModal} />
                 <UserOptions icon={"favorite_border"} />
-                <UserOptions icon={"add_shopping_cart"} />
+                <UserOptions icon={"add_shopping_cart"} onclick={openCartModal} />
             </div>
         </header>
         <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal}/>
+        <SideModalCartItens isOpen={isCartModalOpen} onClose={closeCartModal} />
         </div>
     )
 }
