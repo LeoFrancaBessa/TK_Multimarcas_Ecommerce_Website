@@ -24,6 +24,7 @@ body.modal-open {
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1001;
     transition: right 0.3s ease-in-out;
+    color: #001440;
   }
   
   .cart-side-modal.open {
@@ -55,14 +56,89 @@ body.modal-open {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
-  .cart-modal-top-section p{
+  .cart-modal-top-section .resume{
     margin-left: 5%;
     font-weight: 500;
+    margin-bottom: 0%;
+  }
+
+  .cart-modal-top-section .count-info{
+    margin-left: 5%;
+    font-weight: normal;
+    font-size: 12px;
   }
 
   .cart-modal-bottom-section {
     flex: 1;
     margin-top: 5%;
   }
+
+  .cart-items {
+    margin-top: 8%;
+  }
+
+  .clothing-item-container{
+    display: flex;
+    margin-left: 5%;
+    margin-bottom: 15%;
+  }
+
+  .clothing-item-image {
+    margin-right: 1%;
+  }
+
+  .clothing-item-image img {
+    width: 6em;
+    height: 8em;
+    border: 1px solid #d5dce9;
+    border-radius: 5px;
+  }
+
+  .clothing-item-info {
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    font-size: 13px;
+  }
+
+  .clothing-item-title {
+    font-weight: 500;
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-price {
+    font-weight: 600;
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-size {
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-color {
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-update {
+    margin-top: 5%;
+    display: flex;
+    gap: 10%;
+  }
+
+  .clothing-item-update a {
+    color: #000;
+  }
+
+  .clothing-item-quantity {
+    width: 35px; 
+    height: 28px; 
+    border-radius: 20%;
+    background-color: white;
+    padding: 0;
+    font-size: 16px; 
+    text-align: center;
+    position: relative;
+}
   
   

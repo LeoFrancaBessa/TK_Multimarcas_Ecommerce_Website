@@ -65,7 +65,7 @@ function ClothingDetails({id, name, price, brand, images, sizes, colors, favorit
             </div>
 
             <div className="additional-info">
-                <p className="price-info">por <b>{`R${price}`}</b> à vista</p>
+                <p className="price-info">por <b>{`R$ ${price}`}</b> à vista</p>
                 <p>{`ou 3x de ${price} sem juros`}</p>
 
                 <p className="color-title">Cor</p>

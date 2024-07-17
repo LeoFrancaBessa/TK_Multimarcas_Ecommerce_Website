@@ -23,7 +23,7 @@ class ClothindDetailView(RetrieveAPIView):
 class CartView(APIView):
     def get(self, request):
         cart = Cart.objects.filter(user=request.user).first()
-        serializer = CartSerializer(cart)
+        serializer = CartSerializer(cart, context={'request': request})
         return Response(serializer.data)
     
 

@@ -1,10 +1,15 @@
 import {React, useEffect, useState } from 'react';
 import './SideModalCartItens.css';
 import { getCartItens } from '../../services/getCartItensService';
+import { updateClothingCartItem, deleteClothingCartItem } from '../../services/updateClothingCart';
+
 
 function SideModalCartItens({isOpen, onClose}){
-    const [cartItens, setCartItens] = useState(null);
+    const [cart, setCart] = useState(null);
+    const [itensCount, setItensCount] = useState(0);
+    const [isUpdateCart, setIsUpdatedCart] = useState(false);
 
+    //Hide scrollbar
     useEffect(() => {
         if (isOpen){
             document.body.classList.add('modal-open');
@@ -18,16 +23,34 @@ function SideModalCartItens({isOpen, onClose}){
         }
     }, [isOpen]);
 
+    //Update cart
     useEffect(() => {
         async function fetchCartItens(){
             const data = await getCartItens();
-            setCartItens(data);
+            setCart(data);
+            setItensCount(data.cartItems ? data.cartItems.length : 0);
+            console.log(data);
         }
 
         if (isOpen) fetchCartItens();
-    }, [isOpen]);
+    }, [isOpen, isUpdateCart]);
 
-    if(!isOpen) return null
+    //Handle item quantity options
+    const optionsArray = Array.from({length:10}, (_, index) => index + 1)
+    const handleUpdateQuantytity = (cartItemId) => async (event) => {
+        await updateClothingCartItem(cartItemId, event.target.value);
+        setIsUpdatedCart(!isUpdateCart);
+    }
+
+    //Handle delete item from cart
+    const handleDeleteCartItem = async function(cartItemId){
+        await deleteClothingCartItem(cartItemId);
+        setIsUpdatedCart(!isUpdateCart);
+    }
+
+    if(!isOpen) return null;
+
+    if(!cart) return null;
 
     return(
         <>
@@ -38,7 +61,33 @@ function SideModalCartItens({isOpen, onClose}){
               &times;
             </button>
             <div className="cart-modal-top-section">
-              <p>Resumo da sua sacola</p>
+              <p className='resume'>Resumo da sua sacola</p>
+              <p className='count-info'>Sua sacola possui {itensCount} {itensCount == 1 ? 'item' : 'itens'}</p>
+              
+              <div className='cart-items'>
+                {cart.cartItems.map((item) => (
+                    <div className='clothing-item-container' key={item.id}>
+                        <div className='clothing-item-image'>
+                            <img src={item.clothing.image}></img>
+                        </div>  
+                        <div className='clothing-item-info'>
+                            <p className='clothing-item-title'>{item.clothing.name}</p>
+                            <p className='clothing-item-price'>R$ {item.clothing.price}</p>
+                            <p className='clothing-item-size'>Tamanho: {item.size.size}</p>
+                            <p className='clothing-item-color'>Cor:  {item.color.color}</p>
+                            <div className='clothing-item-update'>
+                                <select className='clothing-item-quantity' onChange={handleUpdateQuantytity(item.id)}>
+                                    {optionsArray.map((quantity) => (
+                                        <option value={quantity} selected={item.quantity == quantity}>{quantity}</option>
+                                    ))}
+                                </select>
+                                <a href="#" onClick={() => handleDeleteCartItem(item.id)}><i className="material-icons">delete_outline</i></a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+              </div>
+            
             </div>
             <div className="cart-modal-bottom-section">
               <h2>Bottom Section</h2>

@@ -78,9 +78,10 @@ class ClothingCartSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'price', 'image')  
 
     def get_image(self, obj):
+        request = self.context.get('request')
         image = obj.images.first()
         if image:
-            return image.image.path
+            return request.build_absolute_uri(image.image.url)
         return None
 
 
@@ -96,10 +97,18 @@ class CartItemListSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     cartItems = CartItemListSerializer(many=True)
+    price = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Cart 
-        fields = ('id', 'cartItems')
+        fields = ('id', 'cartItems', 'price')
+
+    def get_price(self, obj):
+        total_price = 0
+        for item in obj.cartItems.all():
+            clothing_price = item.quantity * item.clothing.price
+            total_price += clothing_price
+        return total_price
 
 
 class CartItemSerializer(serializers.ModelSerializer):
