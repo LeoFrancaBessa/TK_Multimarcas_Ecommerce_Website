@@ -1,7 +1,9 @@
 const API_URL_GET = 'http://127.0.0.1:8000/api/clothing_list/'
 
-export async function getClothingList() {
-    const response = await fetch(API_URL_GET, {
+export async function getClothingList(filters = {}, page_size = null) {
+    const queryParams = new URLSearchParams(filters).toString();
+    const apiUrl = `${API_URL_GET}?${queryParams}`
+    const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -9,6 +11,11 @@ export async function getClothingList() {
         credentials: "include",
     });
 
-    const data = await response.json();
+    if (!response.ok) return null;
+
+    let data = await response.json();
+    if (page_size){
+        data = data.slice(0, page_size);
+    }
     return data;
 }

@@ -39,8 +39,7 @@ body.modal-open {
   
   .cart-modal-close-button {
     position: absolute;
-    top: 1px;
-    right: 1px;
+    right: 10px;
     background: none;
     border: none;
     font-size: 24px;
@@ -51,9 +50,10 @@ body.modal-open {
   
   .cart-modal-top-section {
     margin-top: 5%;
-    flex: 0 0 60%;
+    flex: 0 0 70%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
   }
   
   .cart-modal-top-section .resume{
@@ -68,11 +68,6 @@ body.modal-open {
     font-size: 12px;
   }
 
-  .cart-modal-bottom-section {
-    flex: 1;
-    margin-top: 5%;
-  }
-
   .cart-items {
     margin-top: 8%;
   }
@@ -81,17 +76,6 @@ body.modal-open {
     display: flex;
     margin-left: 5%;
     margin-bottom: 15%;
-  }
-
-  .clothing-item-image {
-    margin-right: 1%;
-  }
-
-  .clothing-item-image img {
-    width: 6em;
-    height: 8em;
-    border: 1px solid #d5dce9;
-    border-radius: 5px;
   }
 
   .clothing-item-info {
@@ -131,7 +115,7 @@ body.modal-open {
   }
 
   .clothing-item-quantity {
-    width: 35px; 
+    width: 40px; 
     height: 28px; 
     border-radius: 20%;
     background-color: white;
@@ -139,6 +123,26 @@ body.modal-open {
     font-size: 16px; 
     text-align: center;
     position: relative;
+}
+
+.cart-modal-bottom-section {
+  flex: 1;
+  margin-top: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.cart-total-price {
+  display: flex;
+  justify-content: space-between;
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.cart-confirm-section p {
+  font-size: 10px;
+  margin-top: 5%;
+  margin-bottom: 0%;
 }
   
   

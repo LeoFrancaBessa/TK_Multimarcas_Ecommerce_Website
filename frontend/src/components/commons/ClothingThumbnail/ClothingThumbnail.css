@@ -1,0 +1,10 @@
+.clothing-item-image {
+    margin-right: 1%;
+  }
+
+  .clothing-item-image img {
+    width: 6em;
+    height: 7.5em;
+    border: 1px solid #d5dce9;
+    border-radius: 5px;
+  }

@@ -2,7 +2,7 @@ from .models import Clothing, Cart, CartItem, Favorites
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, filters
 from .serializers import ClothingListSerializer, ClothingDetailSerializer, CartSerializer, CartItemSerializer, FavoritesSerializer, UserProfileCreateSerializer
 from rest_framework.permissions import IsAuthenticated
 
@@ -10,10 +10,28 @@ from rest_framework.permissions import IsAuthenticated
 class ClothingListView(ListAPIView):
     queryset = Clothing.objects.all()
     serializer_class = ClothingListSerializer
+    filter_backends = [filters.SearchFilter]
     
     def get_queryset(self):
-        return super().get_queryset()
-    
+        queryset = super().get_queryset()
+        filters = {}
+
+        name = self.request.query_params.get('name', None)
+        if name:
+            filters['name__icontains'] = name
+        
+        min_price = self.request.query_params.get('min_price', None)
+        if min_price:
+            filters['price__gte'] = min_price
+        
+        max_price = self.request.query_params.get('max_price', None)
+        if max_price:
+            filters['price__lte'] = max_price
+        
+        if filters:
+            queryset = queryset.filter(**filters)
+
+        return queryset
 
 class ClothindDetailView(RetrieveAPIView):
     queryset = Clothing.objects.all()

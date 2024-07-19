@@ -1,0 +1,39 @@
+.recommendations-modal {
+    position: absolute;
+    top: calc(100% + 10px); /* Posiciona a sessão de recomendações abaixo da SearchBar */
+    left: 0;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Z-index alto para garantir que se sobreponha a outros elementos */
+}
+
+.searched-items-container {
+    display: flex;
+    flex-wrap: wrap; /* Garante que os itens quebrem para a próxima linha */
+    gap: 20px; /* Espaçamento entre os itens */
+    justify-content: center;
+}
+
+.searched-items-flex-item {
+    width: 40%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border-radius: 1%;
+    margin-bottom: 10px; /* Espaçamento entre as linhas */
+    text-overflow: ellipsis; /* exibe '...' no final do texto que ultrapassa o container */
+    white-space: nowrap; /* impede que o texto quebre para uma nova linha */
+    overflow: hidden; /* esconde qualquer conteúdo que ultrapasse o tamanho do container */
+}
+
+.searched-items-flex-item:hover{
+    background-color: #e3e4e6;
+}
+
+.searched-items-flex-item p {
+    color: #001440;
+    font-size: 9px;
+    font-weight: 700;
+    margin-bottom: 0%;
+}

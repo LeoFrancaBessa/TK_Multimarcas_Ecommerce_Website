@@ -4,6 +4,7 @@ import heartFill from '../../assets/images/heartFill.png';
 import heartOutline from '../../assets/images/heartOutline.png';
 import { createFavorite, deleteFavorite } from "../../services/favoriteService";
 import { addClothingCart } from "../../services/addClothingCart";
+import SideModalCartItens from "../SideModalCartItens/SideModalCartItens";
 
 function ClothingDetails({id, name, price, brand, images, sizes, colors, favorite}){
     const [isFavorite, setFavorite] = useState(favorite)
@@ -11,6 +12,10 @@ function ClothingDetails({id, name, price, brand, images, sizes, colors, favorit
     const [selectedColor, setSelectedColor] = useState(null);
     const [selectedSize, setSelectedSize] = useState(null);
     const [error, setError] = useState(null);
+    const [isCartModalOpen, setCartModalOpen] = useState(false);
+    
+    const openCartModal= () => setCartModalOpen(true);
+    const closeCartModal = () => setCartModalOpen(false);
 
     const toggleFavorite = () => {
         if (!isFavorite){
@@ -29,6 +34,9 @@ function ClothingDetails({id, name, price, brand, images, sizes, colors, favorit
         const [data, ok] = await addClothingCart(id, selectedSize, selectedColor);
         if (!ok){
             setError(data.message);
+        }
+        else{
+            openCartModal();
         }
     }
 
@@ -98,6 +106,7 @@ function ClothingDetails({id, name, price, brand, images, sizes, colors, favorit
             </div>
 
         </div>
+    <SideModalCartItens isOpen={isCartModalOpen} onClose={closeCartModal} />
     </section>
     )
 }

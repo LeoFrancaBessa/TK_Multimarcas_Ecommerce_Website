@@ -2,6 +2,8 @@ import {React, useEffect, useState } from 'react';
 import './SideModalCartItens.css';
 import { getCartItens } from '../../services/getCartItensService';
 import { updateClothingCartItem, deleteClothingCartItem } from '../../services/updateClothingCart';
+import ButtonSubmitForm from '../commons/ButtonSubmitForm/ButtonSubmitForm';
+import ClothingThumbnail from '../commons/ClothingThumbnail/ClothingThumbnail';
 
 
 function SideModalCartItens({isOpen, onClose}){
@@ -37,7 +39,7 @@ function SideModalCartItens({isOpen, onClose}){
 
     //Handle item quantity options
     const optionsArray = Array.from({length:10}, (_, index) => index + 1)
-    const handleUpdateQuantytity = (cartItemId) => async (event) => {
+    const handleUpdateQuantity = (cartItemId) => async (event) => {
         await updateClothingCartItem(cartItemId, event.target.value);
         setIsUpdatedCart(!isUpdateCart);
     }
@@ -67,16 +69,14 @@ function SideModalCartItens({isOpen, onClose}){
               <div className='cart-items'>
                 {cart.cartItems.map((item) => (
                     <div className='clothing-item-container' key={item.id}>
-                        <div className='clothing-item-image'>
-                            <img src={item.clothing.image}></img>
-                        </div>  
+                        <ClothingThumbnail image={item.clothing.image} />
                         <div className='clothing-item-info'>
                             <p className='clothing-item-title'>{item.clothing.name}</p>
                             <p className='clothing-item-price'>R$ {item.clothing.price}</p>
                             <p className='clothing-item-size'>Tamanho: {item.size.size}</p>
                             <p className='clothing-item-color'>Cor:  {item.color.color}</p>
                             <div className='clothing-item-update'>
-                                <select className='clothing-item-quantity' onChange={handleUpdateQuantytity(item.id)}>
+                                <select className='clothing-item-quantity' onChange={handleUpdateQuantity(item.id)}>
                                     {optionsArray.map((quantity) => (
                                         <option value={quantity} selected={item.quantity == quantity}>{quantity}</option>
                                     ))}
@@ -90,8 +90,14 @@ function SideModalCartItens({isOpen, onClose}){
             
             </div>
             <div className="cart-modal-bottom-section">
-              <h2>Bottom Section</h2>
-              <p>Content for the bottom section...</p>
+              <div className='cart-total-price'>
+                <h4>Total</h4>
+                <p>R$ {cart.price}</p>
+              </div>
+              <div className='cart-confirm-section'>
+                <p>Você poderá <b>calcular o frete</b> e visualizar mais benefícios ao <b>Fechar o pedido</b></p>
+                <ButtonSubmitForm text={'Fechar o pedido'} />
+              </div>
             </div>
           </div>
         </div>
