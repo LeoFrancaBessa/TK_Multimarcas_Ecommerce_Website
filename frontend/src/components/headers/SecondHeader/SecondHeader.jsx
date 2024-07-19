@@ -8,6 +8,7 @@ import UserOptions from './UsersOptions'
 import LoginModal from "../../LoginModal/LoginModal";
 import SideModalCartItens from "../../SideModalCartItens/SideModalCartItens";
 
+
 function SecondHeader(){
     const [isLoginModalOpen, setLoginModalOpen] = useState(false);
     const openLoginModal= () => setLoginModalOpen(true);

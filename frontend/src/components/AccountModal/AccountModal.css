@@ -1,0 +1,10 @@
+.account-modal {
+    position: absolute;
+    top: calc(100% + 10px); /* Posiciona a sessão de recomendações abaixo da SearchBar */
+    left: 0;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Z-index alto para garantir que se sobreponha a outros elementos */
+}

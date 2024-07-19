@@ -5,7 +5,9 @@ import ButtonSubmitForm from '../commons/ButtonSubmitForm/ButtonSubmitForm'
 import SignUpModal from "../SignUpModal/SignUpModal";
 import {login} from '../../services/authServices';
 
+
 function LoginModal({isOpen, onClose}){
+
     const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
     const openSignupModal = () => setSignUpModalOpen(true);
     const closeSignupModal = () => setSignUpModalOpen(false);
