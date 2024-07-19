@@ -36,6 +36,11 @@ class LogoutView(LoginRequiredMixin, APIView):
         return Response({}, status=status.HTTP_200_OK)
 
 
+class CheckAuthentication(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response({'authenticated': request.user.is_authenticated}, status=status.HTTP_200_OK)
+
+
 class SignupView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = SignupSerializer(data=request.data)
