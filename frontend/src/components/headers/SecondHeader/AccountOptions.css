@@ -1,0 +1,22 @@
+.account-options-container {
+    position: relative;
+}
+
+.account-options {
+    width: 117px;
+    display: flex;
+    align-items: center;
+    gap: 6%;
+}
+
+.account-options-text {
+    font-size: 12px;
+}
+
+.account-options-text p {
+    margin-bottom: 0%;
+}
+
+.account-options a{
+    color: #333;
+}

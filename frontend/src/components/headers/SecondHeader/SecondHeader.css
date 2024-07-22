@@ -29,4 +29,5 @@
     margin-right: 100px;
     display: flex;
     gap: 5%;
+    align-items:end;
 }

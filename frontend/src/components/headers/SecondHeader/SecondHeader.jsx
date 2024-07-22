@@ -5,6 +5,7 @@ import CategoriesLinks from '../../commons/CategoriesLinks/CategoriesLinks'
 import SearchBar from '../../commons/SearchBar/SearchBar'
 import ButtonIcons from '../../commons/ButtonIcons/ButtonIcons'
 import UserOptions from './UsersOptions'
+import AccountOptions from "./AccountOptions";
 import LoginModal from "../../LoginModal/LoginModal";
 import SideModalCartItens from "../../SideModalCartItens/SideModalCartItens";
 
@@ -37,7 +38,7 @@ function SecondHeader(){
                 <ButtonIcons icon={"search"} />
             </div>
             <div className="user-options-container">
-                <UserOptions icon={"person_outline"} onclick={openLoginModal} />
+                <AccountOptions />
                 <UserOptions icon={"favorite_border"} />
                 <UserOptions icon={"add_shopping_cart"} onclick={openCartModal} />
             </div>
