@@ -17,7 +17,7 @@ function ClothingDetail(){
         }
 
         fetchClothingDetail();
-    }, []);
+    }, [clothingID]);
 
     return (
         <div className="App">

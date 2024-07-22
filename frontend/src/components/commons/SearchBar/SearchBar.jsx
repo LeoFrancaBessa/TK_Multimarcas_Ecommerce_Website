@@ -20,10 +20,16 @@ function SearchBar({placeholder}){
         }
     }
 
+    const handleClickOutside = async function(){
+        setTimeout(() => {
+            closeSearchModal();
+        }, 100);
+    }
+
     return (
         <div className="search-bar-container"> 
-            <input className="search-bar" type="text" placeholder={placeholder} onChange={handleChange} onBlur={closeSearchModal} onClick={openSearchModal}></input>
-            <SearchRecommendationsModal isOpen={isSearchModalOpen} searchTerm={searchTerm} />
+            <input className="search-bar" type="text" placeholder={placeholder} onChange={handleChange} onBlur={handleClickOutside} onClick={openSearchModal}></input>
+            <SearchRecommendationsModal isOpen={isSearchModalOpen} searchTerm={searchTerm} onClose={closeSearchModal} />
         </div>
     )
 }

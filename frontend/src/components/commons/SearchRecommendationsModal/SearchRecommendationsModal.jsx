@@ -4,7 +4,7 @@ import {getClothingList} from '../../../services/getClothingListService';
 import ClothingThumbnail from '../ClothingThumbnail/ClothingThumbnail';
 import { Link } from "react-router-dom";
 
-function SearchRecommendationsModal({isOpen, searchTerm}){
+function SearchRecommendationsModal({isOpen, searchTerm, onClose}){
     const [searchedItens, setSearchedItens] = useState(null);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ function SearchRecommendationsModal({isOpen, searchTerm}){
                 <div className="searched-items-container">
                     {searchedItens ? searchedItens.map((items) => (
                         <div className="searched-items-flex-item">
-                            <Link style={{textDecoration: 'none'}} to={`roupa/${items.id}/${items.name}`}>
+                            <Link onClick={onClose} style={{textDecoration: 'none'}} to={`/roupa/${items.id}/${items.name}`}>
                                 <ClothingThumbnail image={items.image} />
                                 <p>{items.name}</p>
                                 <p>R$ {items.price}</p>
