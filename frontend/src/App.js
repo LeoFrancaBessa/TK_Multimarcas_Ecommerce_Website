@@ -4,11 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import './assets/styles/globals.css'
 import HomePage from './pages/HomePage';
 import ClothingDetailsPage from './pages/ClothingDetailsPage';
-
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider} from "react-router-dom";
 
 const router = createBrowserRouter([
   {

@@ -1,6 +1,6 @@
 import {React, useState} from "react";
 import './SearchBar.css';
-import SearchRecommendationsModal from "../SearchRecommendationsModal/SearchRecommendationsModal";
+import SearchRecommendationsModal from '../SearchRecommendationsModal/SearchRecommendationsModal'
 
 function SearchBar({placeholder}){
     const [searchTerm, setSearchTerm] = useState('');

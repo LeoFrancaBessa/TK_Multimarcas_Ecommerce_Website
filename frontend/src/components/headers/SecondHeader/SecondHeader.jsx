@@ -2,19 +2,14 @@ import React, {useState} from "react";
 import './SecondHeader.css'
 import logo from '../../../assets/images/main_logo.png';
 import CategoriesLinks from '../../commons/CategoriesLinks/CategoriesLinks'
-import SearchBar from '../../commons/SearchBar/SearchBar'
+import SearchBar from "../../SearchBar/SearchBar";
 import ButtonIcons from '../../commons/ButtonIcons/ButtonIcons'
-import UserOptions from './UsersOptions'
-import AccountOptions from "./AccountOptions";
-import LoginModal from "../../LoginModal/LoginModal";
+import UsersOptions from "../../commons/UserOptions/UsersOptions";
+import AccountOptions from "../../AccountOptions/AccountOptions";
 import SideModalCartItens from "../../SideModalCartItens/SideModalCartItens";
 
 
 function SecondHeader(){
-    const [isLoginModalOpen, setLoginModalOpen] = useState(false);
-    const openLoginModal= () => setLoginModalOpen(true);
-    const closeLoginModal = () => setLoginModalOpen(false);
-
     const [isCartModalOpen, setCartModalOpen] = useState(false);
     const openCartModal= () => setCartModalOpen(true);
     const closeCartModal = () => setCartModalOpen(false);
@@ -39,11 +34,10 @@ function SecondHeader(){
             </div>
             <div className="user-options-container">
                 <AccountOptions />
-                <UserOptions icon={"favorite_border"} />
-                <UserOptions icon={"add_shopping_cart"} onclick={openCartModal} />
+                <UsersOptions icon={"favorite_border"} />
+                <UsersOptions icon={"add_shopping_cart"} onclick={openCartModal} />
             </div>
         </header>
-        <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal}/>
         <SideModalCartItens isOpen={isCartModalOpen} onClose={closeCartModal} />
         </div>
     )

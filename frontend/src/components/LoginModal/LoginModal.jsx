@@ -3,11 +3,12 @@ import './LoginModal.css'
 import FormLabelsInput from '../commons/FormLabelsInput/FormLabelsInput'
 import ButtonSubmitForm from '../commons/ButtonSubmitForm/ButtonSubmitForm'
 import SignUpModal from "../SignUpModal/SignUpModal";
+import {useDispatch} from 'react-redux';
 import {login} from '../../services/authServices';
+import { setLogin } from "../../redux/authSlice";
 
 
 function LoginModal({isOpen, onClose}){
-
     const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
     const openSignupModal = () => setSignUpModalOpen(true);
     const closeSignupModal = () => setSignUpModalOpen(false);
@@ -15,6 +16,8 @@ function LoginModal({isOpen, onClose}){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const dispatch = useDispatch();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,6 +27,7 @@ function LoginModal({isOpen, onClose}){
             setError(data.message[0]);
         }
         else{
+            dispatch(setLogin());
             onClose();
         }
     }

@@ -1,0 +1,72 @@
+.account-modal-anonymous {
+    position: absolute;
+    top: calc(100% + 10px); /* Posiciona a sessão de recomendações abaixo da SearchBar */
+    left: -40px;
+    width: 310px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Z-index alto para garantir que se sobreponha a outros elementos */
+}
+
+.account-modal-anonymous-items-container {
+    padding: 10px;
+}
+
+.account-modal-anonymous-text-container {
+    color: #001440;
+    text-align: left;
+}
+
+.account-modal-anonymous-text-container h6{
+    font-weight: bolder;
+    margin-bottom: 0;
+}
+
+.account-modal-anonymous-text-container p{
+    font-size: 14px;
+}
+
+.account-modal-anonymous-buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.account-modal-anonymous-botao-entrar {
+    display: inline-block;
+    background-color: #001440;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    width: 120px;
+}
+
+.account-modal-anonymous-botao-entrar:hover {
+    background-color: #022061; /* cor um pouco mais clara para o efeito hover */
+  }
+
+.account-modal-anonymous-botao-criar-conta {
+    display: inline-block;
+    background-color: white;
+    color: #001440; /* cor verde para o texto */
+    text-align: center;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    border: 0.01em solid #001440;
+    height: 50%;
+}
+
+.account-modal-anonymous-botao-criar-conta:hover {
+    color: #022369; /* cor um pouco mais clara para o texto no hover */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* sombra suave no hover */
+  }

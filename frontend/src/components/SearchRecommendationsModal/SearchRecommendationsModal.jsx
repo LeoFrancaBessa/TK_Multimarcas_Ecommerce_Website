@@ -1,7 +1,7 @@
 import {React, useState, useEffect} from "react";
 import './SearchRecommendationsModal.css'
-import {getClothingList} from '../../../services/getClothingListService';
-import ClothingThumbnail from '../ClothingThumbnail/ClothingThumbnail';
+import {getClothingList} from '../../services/getClothingListService';
+import ClothingThumbnail from '../commons/ClothingThumbnail/ClothingThumbnail';
 import { Link } from "react-router-dom";
 
 function SearchRecommendationsModal({isOpen, searchTerm, onClose}){

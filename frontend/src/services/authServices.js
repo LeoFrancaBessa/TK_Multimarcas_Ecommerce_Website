@@ -21,7 +21,7 @@ export async function login(username, password) {
 }
 
 export async function logout() {
-    const response = await fetch(API_LOGOUT, {
+    await fetch(API_LOGOUT, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -29,7 +29,4 @@ export async function logout() {
         },
         credentials: "include",
     });
-
-    const data = await response.json();
-    return data;
 }
