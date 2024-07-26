@@ -61,6 +61,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'main.middlewares.AnonymousSessionMiddleware',
 ]
 
 ROOT_URLCONF = "predict_edge.urls"

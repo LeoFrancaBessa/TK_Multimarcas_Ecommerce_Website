@@ -19,9 +19,10 @@ class ClothingListSerializer(serializers.ModelSerializer):
     
     def get_favorite(self, obj):
         request = self.context.get('request')
-        if not request.user.is_authenticated:
-            return None
-        return Favorites.objects.filter(user=request.user, clothing=obj).exists()
+        if request.user.is_authenticated:
+            return Favorites.objects.filter(user=request.user, clothing=obj).exists()
+        else:
+            return Favorites.objects.filter(session_id=request.session.session_key, clothing=obj).exists()
 
 
 class AttributeValueSerializer(serializers.ModelSerializer):
@@ -65,9 +66,10 @@ class ClothingDetailSerializer(serializers.ModelSerializer):
 
         def get_favorite(self, obj):
             request = self.context.get('request')
-            if not request.user.is_authenticated:
-                return None
-            return Favorites.objects.filter(user=request.user, clothing=obj).exists()
+            if request.user.is_authenticated:
+                return Favorites.objects.filter(user=request.user, clothing=obj).exists()
+            else:
+                return Favorites.objects.filter(session_id=request.session.session_key, clothing=obj).exists()
 
 
 class ClothingCartSerializer(serializers.ModelSerializer):
@@ -117,12 +119,22 @@ class CartItemSerializer(serializers.ModelSerializer):
         fields = ('id', 'clothing', 'size', 'color', 'quantity')
     
     def create(self, validated_data):
-        user = self.context.get('user')
-        cart = Cart.objects.filter(user=user).first()
-        if not cart:
-            cart = Cart.objects.create(
-                user = user
-            )
+        request = self.context.get('request')
+        session_id = request.session.session_key
+        user = request.user
+        
+        if user.is_authenticated:
+            cart = Cart.objects.filter(user=user).first()
+            if not cart:
+                cart = Cart.objects.create(
+                    user = user
+                )
+        else:
+            cart = Cart.objects.filter(session_id=session_id).first()
+            if not cart:
+                cart = Cart.objects.create(
+                    session_id = session_id
+                )
 
         clothing = validated_data['clothing']
         size = validated_data['size']
@@ -166,7 +178,30 @@ class FavoritesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Favorites
-        fields = ('id', 'user', 'clothing')
+        fields = ('id', 'clothing')
+    
+    def create(self, validated_data):
+        request = self.context.get('request')
+        session_id = request.session.session_key
+        user = request.user
+
+        if user.is_authenticated:
+            favorite = Favorites.objects.filter(user=user, clothing=validated_data['clothing']).first()
+            if not favorite:
+                Favorites.objects.create(
+                    user = user,
+                    clothing = validated_data['clothing']
+                )
+        else:
+            favorite = Favorites.objects.filter(session_id=session_id, clothing=validated_data['clothing']).first()
+            if not favorite:
+                Favorites.objects.create(
+                    session_id = session_id,
+                    clothing = validated_data['clothing']
+                )
+        
+        return "Favorite created"
+
 
 
 class UserProfileCreateSerializer(serializers.ModelSerializer):

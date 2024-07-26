@@ -20,7 +20,8 @@ function Home(){
     useEffect(() => {
         async function handleCheckAuth(){
             const response = await checkUserAuth();
-            const isAuth = response.authenticated
+            const isAuth = response.authenticated;
+            console.log(isAuth);
             if (isAuth){
                 dispatch(setLogin());
             }

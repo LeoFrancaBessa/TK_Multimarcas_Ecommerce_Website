@@ -40,7 +40,10 @@ class ClothindDetailView(RetrieveAPIView):
 
 class CartView(APIView):
     def get(self, request):
-        cart = Cart.objects.filter(user=request.user).first()
+        if request.user.is_authenticated:
+            cart = Cart.objects.filter(user=request.user).first()
+        else:
+            cart = Cart.objects.filter(session_id=request.session.session_key).first()
         serializer = CartSerializer(cart, context={'request': request})
         return Response(serializer.data)
     
@@ -49,7 +52,7 @@ class CartItemView(APIView):
     def post(self, request):
         data = request.data
         data['user'] = request.user
-        serializer = CartItemSerializer(data=request.data, context={"user" : request.user})
+        serializer = CartItemSerializer(data=request.data, context={"request" : request})
         if serializer.is_valid():
             message = serializer.save()
             return Response({"message": message}, status=status.HTTP_200_OK)
@@ -76,7 +79,7 @@ class FavoritesView(APIView):
     def post(self, request):
         data = request.data
         data["user"] = request.user.pk
-        serializer = FavoritesSerializer(data=data)
+        serializer = FavoritesSerializer(data=data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response({}, status=status.HTTP_200_OK)
@@ -84,7 +87,10 @@ class FavoritesView(APIView):
     
     def delete(self, request, pk):
         clothing = Clothing.objects.filter(pk=pk).first()
-        favorite = Favorites.objects.filter(clothing=clothing, user=request.user).first()
+        if request.user.is_authenticated:
+            favorite = Favorites.objects.filter(clothing=clothing, user=request.user).first()
+        else:
+            favorite = Favorites.objects.filter(clothing=clothing, session_id=request.session.session_key).first()
         if favorite:
             favorite.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
