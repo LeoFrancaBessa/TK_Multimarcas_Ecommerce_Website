@@ -13,6 +13,10 @@ User = get_user_model()
 
 class LoginView(APIView):
     def post(self, request: Request, *args, **kwargs) -> Response:
+        #Salvar session_id antes do login para realizar a sicronização de dados
+        if not request.user.is_authenticated:
+            request.session['pre_login_session_id'] = request.session.session_key
+
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             username = serializer.validated_data['username']

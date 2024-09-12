@@ -9,8 +9,4 @@ class AnonymousSessionMiddleware:
         if not request.user.is_authenticated and not request.session.session_key:
             request.session.save()
 
-        csrftoken = get_token(request)
-
-        response = self.get_response(request)
-        response['csrftoken'] = csrftoken
-        return response
+        return self.get_response(request)
