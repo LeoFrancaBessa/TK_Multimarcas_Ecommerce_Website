@@ -28,6 +28,7 @@ function LoginModal({isOpen, onClose}){
         }
         else{
             dispatch(setLogin());
+            window.location.reload();
             onClose();
         }
     }

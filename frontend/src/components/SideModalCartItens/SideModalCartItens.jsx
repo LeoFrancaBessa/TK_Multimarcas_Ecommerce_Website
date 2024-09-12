@@ -31,7 +31,6 @@ function SideModalCartItens({isOpen, onClose}){
             const data = await getCartItens();
             setCart(data);
             setItensCount(data.cartItems ? data.cartItems.length : 0);
-            console.log(data);
         }
 
         if (isOpen) fetchCartItens();

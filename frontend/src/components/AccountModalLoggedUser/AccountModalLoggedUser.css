@@ -1,7 +1,7 @@
 .account-modal-logged {
     position: absolute;
     top: calc(100% + 10px); /* Posiciona a sessão de recomendações abaixo da SearchBar */
-    left: -10px;
+    left: -60px;
     width: 150px;
     background-color: #fff;
     border: 1px solid #ccc;

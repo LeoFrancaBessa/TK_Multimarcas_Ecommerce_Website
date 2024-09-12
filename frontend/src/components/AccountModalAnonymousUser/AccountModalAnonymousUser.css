@@ -1,7 +1,7 @@
 .account-modal-anonymous {
     position: absolute;
     top: calc(100% + 10px); /* Posiciona a sessão de recomendações abaixo da SearchBar */
-    left: -40px;
+    left: -150px;
     width: 310px;
     background-color: #fff;
     border: 1px solid #ccc;

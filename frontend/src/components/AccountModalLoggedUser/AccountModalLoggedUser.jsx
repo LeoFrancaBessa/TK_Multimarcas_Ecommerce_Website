@@ -11,6 +11,7 @@ function AccountModalLoggedUser({isOpen, OnClose}){
     async function handleSubmit(){
         await logout();
         dispatch(setLogout());
+        window.location.reload();
         OnClose();
     }
 
