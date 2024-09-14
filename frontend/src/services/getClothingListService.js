@@ -13,6 +13,7 @@ export async function getClothingList(filters = {}, page_size = null) {
 
     if (!response.ok) return null;
 
+    //Gambiarra
     let data = await response.json();
     if (page_size){
         data = data.slice(0, page_size);

@@ -207,6 +207,7 @@ class Favorites(models.Model):
     user = models.ForeignKey(get_user_model(), related_name="favorites", null=True, blank=True,  on_delete=models.CASCADE)
     session_id = models.CharField(max_length=255, null=True, blank=True)
     clothing = models.ForeignKey(Clothing,  on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
         verbose_name = "Favoritos"

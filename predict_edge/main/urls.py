@@ -1,6 +1,6 @@
 # urls.py
 from django.urls import path
-from .views import ClothingListView, ClothindDetailView, CartView, CartItemView, FavoritesView
+from .views import ClothingListView, ClothindDetailView, CartView, CartItemView, FavoritesView, FavoritesListView
 
 urlpatterns = [
     path('api/clothing_list/', ClothingListView.as_view(), name='clothing_list'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('api/cartItens/<int:pk>',CartItemView.as_view(), name='cartItens_update'),
     path('api/favorites/', FavoritesView.as_view(), name="favorites_user"),
     path('api/favorites/<int:pk>', FavoritesView.as_view(), name="favorites_user_delete"),
+    path('api/favorites_list/', FavoritesListView.as_view(), name="favorites_list"),
 ]

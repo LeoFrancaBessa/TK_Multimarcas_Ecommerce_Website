@@ -1,5 +1,6 @@
 .clothing-item-image {
     margin-right: 1%;
+    cursor: pointer;
   }
 
   .clothing-item-image img {

@@ -160,20 +160,6 @@ class CartItemSerializer(serializers.ModelSerializer):
         return "Clothing add to cart."
     
 
-class ClothingFavoriteSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
-    
-    class Meta:
-        model = Clothing
-        fields = ('id', 'name', 'price', 'image')
-
-    def get_image(self, obj):
-        image = obj.images.first()
-        if image:
-            return image.image.path
-        return None
-
-
 class FavoritesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -202,6 +188,28 @@ class FavoritesSerializer(serializers.ModelSerializer):
         
         return "Favorite created"
 
+
+class ClothingFavoriteSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Clothing
+        fields = ('id', 'name', 'price', 'image')
+
+    def get_image(self, obj):
+        request = self.context.get('request')
+        image = obj.images.first()
+        if image:
+            return request.build_absolute_uri(image.image.url)
+        return None
+
+
+class FavoritesListSerializer(serializers.ModelSerializer):
+    clothing = ClothingFavoriteSerializer()
+
+    class Meta:
+        model = Favorites
+        fields = ('clothing',)
 
 
 class UserProfileCreateSerializer(serializers.ModelSerializer):

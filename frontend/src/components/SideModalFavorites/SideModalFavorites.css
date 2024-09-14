@@ -1,0 +1,125 @@
+body.modal-open {
+    overflow: hidden;
+}
+
+.favorites-modal-overlay {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .favorites-side-modal {
+    text-align: left;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 400px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+    transition: right 0.3s ease-in-out;
+    color: #001440;
+  }
+  
+  .favorites-side-modal.open {
+    right: 0;
+  }
+  
+  .favorites-side-modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .favorites-modal-close-button {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+    margin: 10px;
+  }
+  
+  .favorites-modal-top-section {
+    margin-top: 5%;
+    overflow-y: auto;
+  }
+  
+  .favorites-modal-top-section .resume{
+    margin-left: 5%;
+    font-weight: 500;
+    margin-bottom: 0%;
+  }
+
+  .favorites-modal-top-section .count-info{
+    margin-left: 5%;
+    font-weight: normal;
+    font-size: 12px;
+  }
+
+  .favorites-items {
+    margin-top: 8%;
+  }
+
+  .clothing-item-container{
+    display: flex;
+    margin-left: 5%;
+    margin-bottom: 15%;
+  }
+
+  .clothing-item-info {
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    font-size: 13px;
+  }
+
+  .clothing-item-title {
+    font-weight: 500;
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-price {
+    font-weight: 600;
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-size {
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-color {
+    margin-bottom: 0px;
+  }
+
+  .clothing-item-update {
+    margin-top: 5%;
+    display: flex;
+    gap: 10%;
+  }
+
+  .clothing-item-update a {
+    color: #000;
+  }
+
+  .clothing-item-quantity {
+    width: 40px; 
+    height: 28px; 
+    border-radius: 20%;
+    background-color: white;
+    padding: 0;
+    font-size: 16px; 
+    text-align: center;
+    position: relative;
+}
+  
+  

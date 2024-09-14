@@ -68,7 +68,7 @@ function SideModalCartItens({isOpen, onClose}){
               <div className='cart-items'>
                 {cart.cartItems.map((item) => (
                     <div className='clothing-item-container' key={item.id}>
-                        <ClothingThumbnail image={item.clothing.image} />
+                        <ClothingThumbnail id={item.clothing.id} name={item.clothing.name} image={item.clothing.image} />
                         <div className='clothing-item-info'>
                             <p className='clothing-item-title'>{item.clothing.name}</p>
                             <p className='clothing-item-price'>R$ {item.clothing.price}</p>

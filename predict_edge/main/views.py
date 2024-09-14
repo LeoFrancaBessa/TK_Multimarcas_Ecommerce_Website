@@ -3,7 +3,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, filters
-from .serializers import ClothingListSerializer, ClothingDetailSerializer, CartSerializer, CartItemSerializer, FavoritesSerializer, UserProfileCreateSerializer
+from .serializers import ClothingListSerializer, ClothingDetailSerializer, CartSerializer, CartItemSerializer, FavoritesSerializer, UserProfileCreateSerializer, FavoritesListSerializer
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -32,6 +32,7 @@ class ClothingListView(ListAPIView):
             queryset = queryset.filter(**filters)
 
         return queryset
+
 
 class ClothindDetailView(RetrieveAPIView):
     queryset = Clothing.objects.all()
@@ -95,6 +96,28 @@ class FavoritesView(APIView):
             favorite.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
+class FavoritesListView(ListAPIView):
+    queryset = Favorites.objects.all()
+    serializer_class = FavoritesListSerializer
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        
+        if self.request.user.is_authenticated:
+            queryset = Favorites.objects.filter(user=self.request.user)
+        else:
+            queryset = Favorites.objects.filter(session_id=self.request.session.session_key)
+
+        queryset = queryset.order_by('-created_at')
+        return queryset
+    
+    def get_serializer_context(self):
+        # Adiciona o request ao contexto do serializer
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
