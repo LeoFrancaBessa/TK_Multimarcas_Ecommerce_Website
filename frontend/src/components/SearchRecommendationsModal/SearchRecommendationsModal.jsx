@@ -24,12 +24,10 @@ function SearchRecommendationsModal({isOpen, searchTerm, onClose}){
                 <p>Sugestões para "{searchTerm}"</p>
                 <div className="searched-items-container">
                     {searchedItens ? searchedItens.map((items) => (
-                        <div className="searched-items-flex-item">
-                            <Link onClick={onClose} style={{textDecoration: 'none'}} to={`/roupa/${items.id}/${items.name}`}>
-                                <ClothingThumbnail image={items.image} />
-                                <p>{items.name}</p>
-                                <p>R$ {items.price}</p>
-                            </Link>
+                        <div className="searched-items-flex-item" onClick={onClose}>
+                            <ClothingThumbnail id={items.id} name={items.name} image={items.image} />
+                            <p>{items.name}</p>
+                            <p>R$ {items.price}</p>
                         </div>
                     )) : <p>Carregando...</p>}
                 </div>

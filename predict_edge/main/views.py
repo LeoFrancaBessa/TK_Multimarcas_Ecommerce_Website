@@ -27,6 +27,26 @@ class ClothingListView(ListAPIView):
         max_price = self.request.query_params.get('max_price', None)
         if max_price:
             filters['price__lte'] = max_price
+
+        gender = self.request.query_params.get('gender', None)
+        if gender:
+            filters['gender'] = gender
+
+        brand = self.request.query_params.get('brand', None)
+        if brand:
+            filters['brand__name__icontains'] = brand
+
+        category = self.request.query_params.get('category', None)
+        if category:
+            filters['category__name__icontains'] = category
+
+        material = self.request.query_params.get('material', None)
+        if material:
+            filters['material__name__icontains'] = material
+
+        attributes = self.request.query_params.get('attributes', None)
+        if attributes:
+            filters['attributes__value__icontains'] = attributes
         
         if filters:
             queryset = queryset.filter(**filters)
