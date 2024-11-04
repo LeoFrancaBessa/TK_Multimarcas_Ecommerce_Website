@@ -2,13 +2,12 @@ import React, {useState, useEffect} from "react";
 import './ClothingGrid.css'
 import ClothingCardHighlight from '../ClothingCardHighlight/ClothingCardHighlight'
 import { getClothingList } from "../../services/getClothingListService";
-import { useSelector } from 'react-redux';
+
 
 function ClothingGrid(){
-    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
     const [clothingList, setClothingList] = useState([]);
 
+    // No futuro, cada chamada aqui representará um tipo de roupa diferente: mais vendidas, favoritas, promoções, etc...
     useEffect(() => {
         async function fetchClothingList() {
             const data = await getClothingList();

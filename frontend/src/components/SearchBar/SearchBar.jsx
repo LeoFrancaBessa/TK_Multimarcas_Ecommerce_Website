@@ -2,8 +2,7 @@ import {React, useState} from "react";
 import './SearchBar.css';
 import SearchRecommendationsModal from '../SearchRecommendationsModal/SearchRecommendationsModal'
 
-function SearchBar({placeholder}){
-    const [searchTerm, setSearchTerm] = useState('');
+function SearchBar({placeholder, searchTerm, setSearchTerm}){
     const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
     
     const openSearchModal = () => setIsSearchModalOpen(true);
