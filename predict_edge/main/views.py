@@ -1,6 +1,7 @@
 from .models import Clothing, Cart, CartItem, Favorites
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.views import APIView
+from django.db.models import Q
 from rest_framework.response import Response
 from rest_framework import status, filters
 from .serializers import ClothingListSerializer, ClothingDetailSerializer, CartSerializer, CartItemSerializer, FavoritesSerializer, UserProfileCreateSerializer, FavoritesListSerializer
@@ -16,40 +17,58 @@ class ClothingListView(ListAPIView):
         queryset = super().get_queryset()
         filters = {}
 
-        name = self.request.query_params.get('name', None)
-        if name:
-            filters['name__icontains'] = name
+        # Filtro global
+        global_param = self.request.query_params.get('global', None)
         
-        min_price = self.request.query_params.get('min_price', None)
-        if min_price:
-            filters['price__gte'] = min_price
+        if global_param:
+            global_filter = (
+                Q(name__icontains=global_param) |
+                Q(gender__icontains=global_param) |
+                Q(brand__name__icontains=global_param) |
+                Q(category__name__icontains=global_param) |
+                Q(material__name__icontains=global_param) |
+                Q(attributes__value__icontains=global_param)
+            )
+            queryset = queryset.filter(global_filter)
         
-        max_price = self.request.query_params.get('max_price', None)
-        if max_price:
-            filters['price__lte'] = max_price
+        else:
+            name = self.request.query_params.get('name', None)
+            if name:
+                filters['name__icontains'] = name
+            
+            min_price = self.request.query_params.get('min_price', None)
+            if min_price:
+                filters['price__gte'] = min_price
+            
+            max_price = self.request.query_params.get('max_price', None)
+            if max_price:
+                filters['price__lte'] = max_price
 
-        gender = self.request.query_params.get('gender', None)
-        if gender:
-            filters['gender'] = gender
+            gender = self.request.query_params.get('gender', None)
+            if gender:
+                filters['gender'] = gender
 
-        brand = self.request.query_params.get('brand', None)
-        if brand:
-            filters['brand__name__icontains'] = brand
+            brand = self.request.query_params.get('brand', None)
+            if brand:
+                filters['brand__name__icontains'] = brand
 
-        category = self.request.query_params.get('category', None)
-        if category:
-            filters['category__name__icontains'] = category
+            category = self.request.query_params.get('category', None)
+            if category:
+                filters['category__name__icontains'] = category
 
-        material = self.request.query_params.get('material', None)
-        if material:
-            filters['material__name__icontains'] = material
+            material = self.request.query_params.get('material', None)
+            if material:
+                filters['material__name__icontains'] = material
 
-        attributes = self.request.query_params.get('attributes', None)
-        if attributes:
-            filters['attributes__value__icontains'] = attributes
-        
-        if filters:
-            queryset = queryset.filter(**filters)
+            attributes = self.request.query_params.get('attributes', None)
+            if attributes:
+                filters['attributes__value__icontains'] = attributes
+            
+            if filters:
+                queryset = queryset.filter(**filters)
+
+        # Remover duplicados
+        queryset = queryset.distinct()
 
         return queryset
 

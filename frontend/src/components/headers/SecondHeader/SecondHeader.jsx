@@ -30,18 +30,25 @@ function SecondHeader(){
                 <img src={logo}/>
             </div>
             <div className="clothing-options-container">
-                <CategoriesLinks text={'Masculina'} link={"#"}/> 
-                <CategoriesLinks text={'Feminina'} link={"#"}/> 
-                <CategoriesLinks text={'Infantil'} link={"#"}/> 
-                <CategoriesLinks text={'Esportes'} link={"#"}/> 
-                <CategoriesLinks text={'Lançamentos'} link={"#"}/> 
-                <CategoriesLinks text={'Ofertas'} link={"#"}/> 
+                <CategoriesLinks text={'Masculina'} url={"Masculina"}/> 
+                <CategoriesLinks text={'Feminina'} url={"Feminina"}/> 
+                <CategoriesLinks text={'Infantil'} url={"Infantil"}/> 
+                <CategoriesLinks text={'Esportes'} url={"Esportes"}/> 
+                <CategoriesLinks text={'Lançamentos'} url={"Lançamentos"}/> 
+                <CategoriesLinks text={'Ofertas'} url={"Ofertas"}/> 
             </div>
             <div className="search-bar-container">
                 <SearchBar placeholder={"Buscar produto"} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                <Link to={`/busca/${searchTerm}`}> 
-                    <ButtonIcons icon={"search"} /> 
-                </Link>
+                {// Se a string for vazia, retornar para a página principal
+                searchTerm.trim() ? 
+                    <Link to={`/busca/${searchTerm}`}> 
+                        <ButtonIcons icon={"search"} /> 
+                    </Link> 
+                : 
+                    <Link to={`/`}> 
+                        <ButtonIcons icon={"search"} /> 
+                    </Link>
+                }
             </div>
             <div className="user-options-container">
                 <AccountOptions />

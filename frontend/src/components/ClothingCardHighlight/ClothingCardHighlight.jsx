@@ -21,7 +21,7 @@ function ClothingCardHighlight({id, image, favorite, clothing_name, clothing_pri
     return (
         <div className="destaque" key={id}>
             <img src={image} alt="Roupa 1"></img>
-            <Link to={`roupa/${id}/${clothing_name}`}> <button className="btn-mais-detalhes">Mais Detalhes</button> </Link>
+            <Link to={`/roupa/${id}/${clothing_name}`}> <button className="btn-mais-detalhes">Mais Detalhes</button> </Link>
             <span className="favorite-heart">
             <img src={isFavorite ? heartFill : heartOutline} onClick={toggleFavorite}></img>
             </span>

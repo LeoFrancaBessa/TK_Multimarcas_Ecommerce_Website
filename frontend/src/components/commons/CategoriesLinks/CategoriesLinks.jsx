@@ -1,9 +1,12 @@
 import React from "react";
-import './CategoriesLinks.css'
+import './CategoriesLinks.css';
+import { Link } from "react-router-dom";
 
-function CategoriesLinks({text, link}){
+function CategoriesLinks({text, url}){
     return (
-        <a className="clothing-options" href={link}>{text}</a>
+        <Link to={`/busca/${url}`} style={{ textDecoration: 'none' }}> 
+            <a className="clothing-options" href="#">{text}</a> 
+        </Link> 
     )
 }
 
